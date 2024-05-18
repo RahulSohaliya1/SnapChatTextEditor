@@ -1,0 +1,620 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 55;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		8807A78928E19F4E007DAAD1 /* EditImageVC+Draw.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8807A78828E19F4E007DAAD1 /* EditImageVC+Draw.swift */; };
+		8807A78B28E1B039007DAAD1 /* EditImageVC+Text.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8807A78A28E1B039007DAAD1 /* EditImageVC+Text.swift */; };
+		8807A78D28E1B15B007DAAD1 /* EditImageVC+Gestures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8807A78C28E1B15B007DAAD1 /* EditImageVC+Gestures.swift */; };
+		8807A78F28E1B446007DAAD1 /* EditImageVC+UITextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8807A78E28E1B446007DAAD1 /* EditImageVC+UITextView.swift */; };
+		881D47AB28DD79E700238EFF /* ImgMainCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881D47A928DD79E700238EFF /* ImgMainCell.swift */; };
+		881D47AC28DD79E700238EFF /* ImgMainCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 881D47AA28DD79E700238EFF /* ImgMainCell.xib */; };
+		881D47AE28DD823A00238EFF /* Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881D47AD28DD823A00238EFF /* Ext.swift */; };
+		8829596E28EE92A500E7AA38 /* VideoPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8829596D28EE92A500E7AA38 /* VideoPlayerView.swift */; };
+		882F205228DC866900940972 /* EditImageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882F205128DC866900940972 /* EditImageVC.swift */; };
+		882F206028DC90DF00940972 /* ImgListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882F205E28DC90DF00940972 /* ImgListCell.swift */; };
+		882F206128DC90DF00940972 /* ImgListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 882F205F28DC90DF00940972 /* ImgListCell.xib */; };
+		883F1AEE28F1503E0066319D /* EditImageVC+AddImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 883F1AED28F1503E0066319D /* EditImageVC+AddImage.swift */; };
+		8843D3C529220D5E002E3B04 /* TLPHAsset+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8843D3C429220D5E002E3B04 /* TLPHAsset+Ext.swift */; };
+		8843D3C729221040002E3B04 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8843D3C629221040002E3B04 /* Utils.swift */; };
+		8878FA1328D86F1A00B80963 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8878FA1228D86F1A00B80963 /* AppDelegate.swift */; };
+		8878FA1528D86F1A00B80963 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8878FA1428D86F1A00B80963 /* SceneDelegate.swift */; };
+		8878FA1728D86F1A00B80963 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8878FA1628D86F1A00B80963 /* ViewController.swift */; };
+		8878FA1A28D86F1A00B80963 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8878FA1828D86F1A00B80963 /* Main.storyboard */; };
+		8878FA1D28D86F1A00B80963 /* WhatsappPhoto.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8878FA1B28D86F1A00B80963 /* WhatsappPhoto.xcdatamodeld */; };
+		8878FA1F28D86F2000B80963 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8878FA1E28D86F2000B80963 /* Assets.xcassets */; };
+		8878FA2228D86F2000B80963 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8878FA2028D86F2000B80963 /* LaunchScreen.storyboard */; };
+		8878FA3428D8842300B80963 /* SwiftyCamButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8878FA2D28D8842300B80963 /* SwiftyCamButton.swift */; };
+		8878FA3528D8842300B80963 /* PreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8878FA2E28D8842300B80963 /* PreviewView.swift */; };
+		8878FA3628D8842300B80963 /* SwiftyCamViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8878FA2F28D8842300B80963 /* SwiftyCamViewController.swift */; };
+		8878FA3728D8842300B80963 /* SwiftyCamViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8878FA3028D8842300B80963 /* SwiftyCamViewControllerDelegate.swift */; };
+		8878FA3828D8842300B80963 /* CameraVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8878FA3128D8842300B80963 /* CameraVC.swift */; };
+		8878FA3928D8842300B80963 /* SwiftyRecordButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8878FA3228D8842300B80963 /* SwiftyRecordButton.swift */; };
+		8878FA3A28D8842300B80963 /* Orientation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8878FA3328D8842300B80963 /* Orientation.swift */; };
+		8878FA3D28D8975D00B80963 /* PhotoHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8878FA3C28D8975D00B80963 /* PhotoHelper.swift */; };
+		88B3457528F42F30009CD364 /* EditImageVC+Model+Enum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B3457428F42F30009CD364 /* EditImageVC+Model+Enum.swift */; };
+		88B3457728F42FD4009CD364 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B3457628F42FD4009CD364 /* BaseViewController.swift */; };
+		BD17EA292BF719F500FD7784 /* EmojiKnobPreviewVw.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD17EA282BF719F500FD7784 /* EmojiKnobPreviewVw.swift */; };
+		F9A5CAB543328BCA3175A4AC /* Pods_WhatsappPhoto.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32E38A90B981EBC5FF87F140 /* Pods_WhatsappPhoto.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		32E38A90B981EBC5FF87F140 /* Pods_WhatsappPhoto.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WhatsappPhoto.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3D29D42B6EC4E1E22A9794D6 /* Pods-WhatsappPhoto.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WhatsappPhoto.release.xcconfig"; path = "Target Support Files/Pods-WhatsappPhoto/Pods-WhatsappPhoto.release.xcconfig"; sourceTree = "<group>"; };
+		8807A78828E19F4E007DAAD1 /* EditImageVC+Draw.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EditImageVC+Draw.swift"; sourceTree = "<group>"; };
+		8807A78A28E1B039007DAAD1 /* EditImageVC+Text.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EditImageVC+Text.swift"; sourceTree = "<group>"; };
+		8807A78C28E1B15B007DAAD1 /* EditImageVC+Gestures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EditImageVC+Gestures.swift"; sourceTree = "<group>"; };
+		8807A78E28E1B446007DAAD1 /* EditImageVC+UITextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EditImageVC+UITextView.swift"; sourceTree = "<group>"; };
+		881D47A928DD79E700238EFF /* ImgMainCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImgMainCell.swift; sourceTree = "<group>"; };
+		881D47AA28DD79E700238EFF /* ImgMainCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImgMainCell.xib; sourceTree = "<group>"; };
+		881D47AD28DD823A00238EFF /* Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ext.swift; sourceTree = "<group>"; };
+		8829596D28EE92A500E7AA38 /* VideoPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerView.swift; sourceTree = "<group>"; };
+		882F205128DC866900940972 /* EditImageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditImageVC.swift; sourceTree = "<group>"; };
+		882F205E28DC90DF00940972 /* ImgListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImgListCell.swift; sourceTree = "<group>"; };
+		882F205F28DC90DF00940972 /* ImgListCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImgListCell.xib; sourceTree = "<group>"; };
+		883F1AED28F1503E0066319D /* EditImageVC+AddImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EditImageVC+AddImage.swift"; sourceTree = "<group>"; };
+		8843D3C429220D5E002E3B04 /* TLPHAsset+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TLPHAsset+Ext.swift"; sourceTree = "<group>"; };
+		8843D3C629221040002E3B04 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
+		8878FA0F28D86F1A00B80963 /* WhatsappPhoto.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WhatsappPhoto.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8878FA1228D86F1A00B80963 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		8878FA1428D86F1A00B80963 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		8878FA1628D86F1A00B80963 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		8878FA1928D86F1A00B80963 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		8878FA1C28D86F1A00B80963 /* WhatsappPhoto.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = WhatsappPhoto.xcdatamodel; sourceTree = "<group>"; };
+		8878FA1E28D86F2000B80963 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		8878FA2128D86F2000B80963 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		8878FA2328D86F2000B80963 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8878FA2D28D8842300B80963 /* SwiftyCamButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyCamButton.swift; sourceTree = "<group>"; };
+		8878FA2E28D8842300B80963 /* PreviewView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreviewView.swift; sourceTree = "<group>"; };
+		8878FA2F28D8842300B80963 /* SwiftyCamViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyCamViewController.swift; sourceTree = "<group>"; };
+		8878FA3028D8842300B80963 /* SwiftyCamViewControllerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyCamViewControllerDelegate.swift; sourceTree = "<group>"; };
+		8878FA3128D8842300B80963 /* CameraVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraVC.swift; sourceTree = "<group>"; };
+		8878FA3228D8842300B80963 /* SwiftyRecordButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyRecordButton.swift; sourceTree = "<group>"; };
+		8878FA3328D8842300B80963 /* Orientation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Orientation.swift; sourceTree = "<group>"; };
+		8878FA3C28D8975D00B80963 /* PhotoHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoHelper.swift; sourceTree = "<group>"; };
+		88B3457428F42F30009CD364 /* EditImageVC+Model+Enum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EditImageVC+Model+Enum.swift"; sourceTree = "<group>"; };
+		88B3457628F42FD4009CD364 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
+		BD17EA282BF719F500FD7784 /* EmojiKnobPreviewVw.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiKnobPreviewVw.swift; sourceTree = "<group>"; };
+		FBB732F1ECA584FDCDF12BB4 /* Pods-WhatsappPhoto.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WhatsappPhoto.debug.xcconfig"; path = "Target Support Files/Pods-WhatsappPhoto/Pods-WhatsappPhoto.debug.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		8878FA0C28D86F1A00B80963 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F9A5CAB543328BCA3175A4AC /* Pods_WhatsappPhoto.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		4B331146BF40E91153574FD3 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				FBB732F1ECA584FDCDF12BB4 /* Pods-WhatsappPhoto.debug.xcconfig */,
+				3D29D42B6EC4E1E22A9794D6 /* Pods-WhatsappPhoto.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		882F205328DC867A00940972 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				88B3457628F42FD4009CD364 /* BaseViewController.swift */,
+				8878FA1628D86F1A00B80963 /* ViewController.swift */,
+				882F205528DC8DA200940972 /* EditImageVC */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		882F205428DC869600940972 /* Storyboard */ = {
+			isa = PBXGroup;
+			children = (
+				8878FA1828D86F1A00B80963 /* Main.storyboard */,
+				8878FA2028D86F2000B80963 /* LaunchScreen.storyboard */,
+			);
+			path = Storyboard;
+			sourceTree = "<group>";
+		};
+		882F205528DC8DA200940972 /* EditImageVC */ = {
+			isa = PBXGroup;
+			children = (
+				88B3457428F42F30009CD364 /* EditImageVC+Model+Enum.swift */,
+				882F205128DC866900940972 /* EditImageVC.swift */,
+				8807A78828E19F4E007DAAD1 /* EditImageVC+Draw.swift */,
+				8807A78A28E1B039007DAAD1 /* EditImageVC+Text.swift */,
+				8807A78C28E1B15B007DAAD1 /* EditImageVC+Gestures.swift */,
+				8807A78E28E1B446007DAAD1 /* EditImageVC+UITextView.swift */,
+				883F1AED28F1503E0066319D /* EditImageVC+AddImage.swift */,
+				882F205628DC8DA800940972 /* Cell */,
+			);
+			path = EditImageVC;
+			sourceTree = "<group>";
+		};
+		882F205628DC8DA800940972 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				882F205E28DC90DF00940972 /* ImgListCell.swift */,
+				882F205F28DC90DF00940972 /* ImgListCell.xib */,
+				881D47A928DD79E700238EFF /* ImgMainCell.swift */,
+				881D47AA28DD79E700238EFF /* ImgMainCell.xib */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		8878FA0628D86F1900B80963 = {
+			isa = PBXGroup;
+			children = (
+				8878FA1128D86F1A00B80963 /* WhatsappPhoto */,
+				8878FA1028D86F1A00B80963 /* Products */,
+				4B331146BF40E91153574FD3 /* Pods */,
+				EAAD524E503A11046DCFCA27 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		8878FA1028D86F1A00B80963 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8878FA0F28D86F1A00B80963 /* WhatsappPhoto.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		8878FA1128D86F1A00B80963 /* WhatsappPhoto */ = {
+			isa = PBXGroup;
+			children = (
+				8878FA1228D86F1A00B80963 /* AppDelegate.swift */,
+				8878FA1428D86F1A00B80963 /* SceneDelegate.swift */,
+				8878FA3B28D8974E00B80963 /* Helper */,
+				8878FA2C28D8842300B80963 /* Camera */,
+				882F205328DC867A00940972 /* ViewController */,
+				882F205428DC869600940972 /* Storyboard */,
+				8878FA1E28D86F2000B80963 /* Assets.xcassets */,
+				8878FA2328D86F2000B80963 /* Info.plist */,
+				8878FA1B28D86F1A00B80963 /* WhatsappPhoto.xcdatamodeld */,
+			);
+			path = WhatsappPhoto;
+			sourceTree = "<group>";
+		};
+		8878FA2C28D8842300B80963 /* Camera */ = {
+			isa = PBXGroup;
+			children = (
+				8878FA2D28D8842300B80963 /* SwiftyCamButton.swift */,
+				8878FA2E28D8842300B80963 /* PreviewView.swift */,
+				8878FA2F28D8842300B80963 /* SwiftyCamViewController.swift */,
+				8878FA3028D8842300B80963 /* SwiftyCamViewControllerDelegate.swift */,
+				8878FA3128D8842300B80963 /* CameraVC.swift */,
+				8878FA3228D8842300B80963 /* SwiftyRecordButton.swift */,
+				8878FA3328D8842300B80963 /* Orientation.swift */,
+			);
+			path = Camera;
+			sourceTree = "<group>";
+		};
+		8878FA3B28D8974E00B80963 /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				8878FA3C28D8975D00B80963 /* PhotoHelper.swift */,
+				881D47AD28DD823A00238EFF /* Ext.swift */,
+				8829596D28EE92A500E7AA38 /* VideoPlayerView.swift */,
+				8843D3C429220D5E002E3B04 /* TLPHAsset+Ext.swift */,
+				8843D3C629221040002E3B04 /* Utils.swift */,
+				BD17EA282BF719F500FD7784 /* EmojiKnobPreviewVw.swift */,
+			);
+			path = Helper;
+			sourceTree = "<group>";
+		};
+		EAAD524E503A11046DCFCA27 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				32E38A90B981EBC5FF87F140 /* Pods_WhatsappPhoto.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		8878FA0E28D86F1A00B80963 /* WhatsappPhoto */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8878FA2628D86F2000B80963 /* Build configuration list for PBXNativeTarget "WhatsappPhoto" */;
+			buildPhases = (
+				AA8A17C7C561A4939B205886 /* [CP] Check Pods Manifest.lock */,
+				8878FA0B28D86F1A00B80963 /* Sources */,
+				8878FA0C28D86F1A00B80963 /* Frameworks */,
+				8878FA0D28D86F1A00B80963 /* Resources */,
+				975FDD9F1EF839DE4D68DD80 /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = WhatsappPhoto;
+			productName = WhatsappPhoto;
+			productReference = 8878FA0F28D86F1A00B80963 /* WhatsappPhoto.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		8878FA0728D86F1900B80963 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1300;
+				LastUpgradeCheck = 1300;
+				TargetAttributes = {
+					8878FA0E28D86F1A00B80963 = {
+						CreatedOnToolsVersion = 13.0;
+						LastSwiftMigration = 1300;
+					};
+				};
+			};
+			buildConfigurationList = 8878FA0A28D86F1A00B80963 /* Build configuration list for PBXProject "WhatsappPhoto" */;
+			compatibilityVersion = "Xcode 13.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 8878FA0628D86F1900B80963;
+			productRefGroup = 8878FA1028D86F1A00B80963 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				8878FA0E28D86F1A00B80963 /* WhatsappPhoto */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		8878FA0D28D86F1A00B80963 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8878FA2228D86F2000B80963 /* LaunchScreen.storyboard in Resources */,
+				882F206128DC90DF00940972 /* ImgListCell.xib in Resources */,
+				8878FA1F28D86F2000B80963 /* Assets.xcassets in Resources */,
+				881D47AC28DD79E700238EFF /* ImgMainCell.xib in Resources */,
+				8878FA1A28D86F1A00B80963 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		975FDD9F1EF839DE4D68DD80 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-WhatsappPhoto/Pods-WhatsappPhoto-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-WhatsappPhoto/Pods-WhatsappPhoto-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-WhatsappPhoto/Pods-WhatsappPhoto-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		AA8A17C7C561A4939B205886 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-WhatsappPhoto-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8878FA0B28D86F1A00B80963 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8878FA3928D8842300B80963 /* SwiftyRecordButton.swift in Sources */,
+				8878FA1D28D86F1A00B80963 /* WhatsappPhoto.xcdatamodeld in Sources */,
+				8878FA3828D8842300B80963 /* CameraVC.swift in Sources */,
+				8878FA3728D8842300B80963 /* SwiftyCamViewControllerDelegate.swift in Sources */,
+				8878FA1728D86F1A00B80963 /* ViewController.swift in Sources */,
+				8843D3C729221040002E3B04 /* Utils.swift in Sources */,
+				88B3457728F42FD4009CD364 /* BaseViewController.swift in Sources */,
+				881D47AE28DD823A00238EFF /* Ext.swift in Sources */,
+				883F1AEE28F1503E0066319D /* EditImageVC+AddImage.swift in Sources */,
+				8878FA3628D8842300B80963 /* SwiftyCamViewController.swift in Sources */,
+				8807A78F28E1B446007DAAD1 /* EditImageVC+UITextView.swift in Sources */,
+				8878FA1328D86F1A00B80963 /* AppDelegate.swift in Sources */,
+				8843D3C529220D5E002E3B04 /* TLPHAsset+Ext.swift in Sources */,
+				8807A78928E19F4E007DAAD1 /* EditImageVC+Draw.swift in Sources */,
+				BD17EA292BF719F500FD7784 /* EmojiKnobPreviewVw.swift in Sources */,
+				881D47AB28DD79E700238EFF /* ImgMainCell.swift in Sources */,
+				8878FA3428D8842300B80963 /* SwiftyCamButton.swift in Sources */,
+				88B3457528F42F30009CD364 /* EditImageVC+Model+Enum.swift in Sources */,
+				8878FA1528D86F1A00B80963 /* SceneDelegate.swift in Sources */,
+				8807A78B28E1B039007DAAD1 /* EditImageVC+Text.swift in Sources */,
+				882F206028DC90DF00940972 /* ImgListCell.swift in Sources */,
+				882F205228DC866900940972 /* EditImageVC.swift in Sources */,
+				8807A78D28E1B15B007DAAD1 /* EditImageVC+Gestures.swift in Sources */,
+				8878FA3A28D8842300B80963 /* Orientation.swift in Sources */,
+				8878FA3D28D8975D00B80963 /* PhotoHelper.swift in Sources */,
+				8878FA3528D8842300B80963 /* PreviewView.swift in Sources */,
+				8829596E28EE92A500E7AA38 /* VideoPlayerView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		8878FA1828D86F1A00B80963 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				8878FA1928D86F1A00B80963 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		8878FA2028D86F2000B80963 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				8878FA2128D86F2000B80963 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		8878FA2428D86F2000B80963 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		8878FA2528D86F2000B80963 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		8878FA2728D86F2000B80963 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = FBB732F1ECA584FDCDF12BB4 /* Pods-WhatsappPhoto.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 6KNDGF9SJT;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = WhatsappPhoto/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "To Take Photos and Video";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "To Record Audio With Video";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = need;
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = need;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.app.meet-friends";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = Meeturfriends_dev_profile;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		8878FA2828D86F2000B80963 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3D29D42B6EC4E1E22A9794D6 /* Pods-WhatsappPhoto.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 6KNDGF9SJT;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = WhatsappPhoto/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "To Take Photos and Video";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "To Record Audio With Video";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = need;
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = need;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.app.meet-friends";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = Meeturfriends_dev_profile;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		8878FA0A28D86F1A00B80963 /* Build configuration list for PBXProject "WhatsappPhoto" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8878FA2428D86F2000B80963 /* Debug */,
+				8878FA2528D86F2000B80963 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8878FA2628D86F2000B80963 /* Build configuration list for PBXNativeTarget "WhatsappPhoto" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8878FA2728D86F2000B80963 /* Debug */,
+				8878FA2828D86F2000B80963 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		8878FA1B28D86F1A00B80963 /* WhatsappPhoto.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				8878FA1C28D86F1A00B80963 /* WhatsappPhoto.xcdatamodel */,
+			);
+			currentVersion = 8878FA1C28D86F1A00B80963 /* WhatsappPhoto.xcdatamodel */;
+			path = WhatsappPhoto.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = 8878FA0728D86F1900B80963 /* Project object */;
+}

@@ -1,0 +1,41 @@
+PODS:
+  - ColorPicKit (1.2.3)
+  - IQKeyboardManagerSwift (6.5.10)
+  - Kingfisher (7.3.2)
+  - MBProgressHUD (1.2.0)
+  - TLPhotoPicker (2.1.9)
+
+DEPENDENCIES:
+  - ColorPicKit (from `https://github.com/zakkhoyt/ColorPicKit`, branch `1.2.3`)
+  - IQKeyboardManagerSwift
+  - Kingfisher (~> 7.0)
+  - MBProgressHUD (~> 1.2.0)
+  - TLPhotoPicker
+
+SPEC REPOS:
+  trunk:
+    - IQKeyboardManagerSwift
+    - Kingfisher
+    - MBProgressHUD
+    - TLPhotoPicker
+
+EXTERNAL SOURCES:
+  ColorPicKit:
+    :branch: 1.2.3
+    :git: https://github.com/zakkhoyt/ColorPicKit
+
+CHECKOUT OPTIONS:
+  ColorPicKit:
+    :commit: b5d5ac6ce45b53a764811beee33377c3b4fc129c
+    :git: https://github.com/zakkhoyt/ColorPicKit
+
+SPEC CHECKSUMS:
+  ColorPicKit: fd8b3e261673b725c42e3efe5a9a672f0eaa95f1
+  IQKeyboardManagerSwift: 52962c76ab33532f15ad9f3ff4e5715eda5335bb
+  Kingfisher: 0086ad83719761ba9b2cdaf6ef4d5b4878cbae23
+  MBProgressHUD: 3ee5efcc380f6a79a7cc9b363dd669c5e1ae7406
+  TLPhotoPicker: 939c40eaad130b69f9571e61e021e8120fa76329
+
+PODFILE CHECKSUM: c88922435e09b8f7dc841e787e4146fe829fc898
+
+COCOAPODS: 1.15.2

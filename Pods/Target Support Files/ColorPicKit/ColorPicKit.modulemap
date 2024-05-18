@@ -1,0 +1,6 @@
+framework module ColorPicKit {
+  umbrella header "ColorPicKit-umbrella.h"
+
+  export *
+  module * { export * }
+}

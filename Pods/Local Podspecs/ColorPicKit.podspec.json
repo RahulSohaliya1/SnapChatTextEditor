@@ -1,0 +1,22 @@
+{
+  "name": "ColorPicKit",
+  "version": "1.2.3",
+  "summary": "Various UIControls for selecting colors along with some useful categories on UIColor",
+  "authors": {
+    "Zakk Hoyt": "vaporwarewolf@gmail.com"
+  },
+  "homepage": "http://github.com/zakkhoyt/ColorPicKit",
+  "platforms": {
+    "ios": "9.0"
+  },
+  "license": {
+    "type": "MIT",
+    "text": "                  Copyright 2016. Zakk hoyt.\n"
+  },
+  "source": {
+    "git": "https://github.com/zakkhoyt/ColorPicKit.git",
+    "tag": "1.2.3"
+  },
+  "source_files": "ColorPicKit/**/*.{swift}",
+  "requires_arc": true
+}

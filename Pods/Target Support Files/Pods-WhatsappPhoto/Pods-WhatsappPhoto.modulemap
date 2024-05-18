@@ -1,0 +1,6 @@
+framework module Pods_WhatsappPhoto {
+  umbrella header "Pods-WhatsappPhoto-umbrella.h"
+
+  export *
+  module * { export * }
+}

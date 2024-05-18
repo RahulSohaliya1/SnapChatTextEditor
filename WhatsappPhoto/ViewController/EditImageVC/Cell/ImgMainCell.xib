@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="ImgMainCell" customModule="WhatsappPhoto" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="667"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="414" height="667"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WkD-U1-gx6" userLabel="canvas">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="667"/>
+                        <subviews>
+                            <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_temp" translatesAutoresizingMaskIntoConstraints="NO" id="QJT-5o-Fkb">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="667"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="667" id="Zb6-4V-pOA"/>
+                                </constraints>
+                            </imageView>
+                            <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Qy0-RH-dtX">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="667"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="QJT-5o-Fkb" secondAttribute="trailing" id="5bg-hT-FFd"/>
+                            <constraint firstItem="Qy0-RH-dtX" firstAttribute="width" secondItem="QJT-5o-Fkb" secondAttribute="width" id="61O-Ls-iH0"/>
+                            <constraint firstAttribute="bottom" secondItem="QJT-5o-Fkb" secondAttribute="bottom" priority="750" id="Jso-Yx-rpG"/>
+                            <constraint firstItem="QJT-5o-Fkb" firstAttribute="top" secondItem="WkD-U1-gx6" secondAttribute="top" priority="750" id="LcY-fJ-TUy"/>
+                            <constraint firstItem="Qy0-RH-dtX" firstAttribute="centerX" secondItem="QJT-5o-Fkb" secondAttribute="centerX" id="T9F-er-veE"/>
+                            <constraint firstItem="QJT-5o-Fkb" firstAttribute="leading" secondItem="WkD-U1-gx6" secondAttribute="leading" id="aPU-gA-D33"/>
+                            <constraint firstItem="Qy0-RH-dtX" firstAttribute="height" secondItem="QJT-5o-Fkb" secondAttribute="height" id="h4O-xV-m5e"/>
+                            <constraint firstItem="Qy0-RH-dtX" firstAttribute="centerY" secondItem="QJT-5o-Fkb" secondAttribute="centerY" id="u2U-IQ-s0G"/>
+                            <constraint firstItem="QJT-5o-Fkb" firstAttribute="centerY" secondItem="WkD-U1-gx6" secondAttribute="centerY" id="vek-PE-AWu"/>
+                            <constraint firstItem="QJT-5o-Fkb" firstAttribute="centerX" secondItem="WkD-U1-gx6" secondAttribute="centerX" id="x6w-ps-9sl"/>
+                        </constraints>
+                    </view>
+                </subviews>
+            </view>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="WkD-U1-gx6" secondAttribute="trailing" id="TiA-ox-jRh"/>
+                <constraint firstItem="WkD-U1-gx6" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="YyN-pW-4cp"/>
+                <constraint firstAttribute="bottom" secondItem="WkD-U1-gx6" secondAttribute="bottom" id="auf-FI-DhM"/>
+                <constraint firstItem="WkD-U1-gx6" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="oKk-WQ-Jn1"/>
+            </constraints>
+            <size key="customSize" width="315" height="551"/>
+            <connections>
+                <outlet property="canvasImageView" destination="Qy0-RH-dtX" id="w7o-pt-VrP"/>
+                <outlet property="canvasView" destination="WkD-U1-gx6" id="qVF-0c-Yco"/>
+                <outlet property="imageView" destination="QJT-5o-Fkb" id="fZW-Lx-aC3"/>
+                <outlet property="imageViewHeightConstraint" destination="Zb6-4V-pOA" id="IeE-Gj-mB3"/>
+            </connections>
+            <point key="canvasLocation" x="323.91304347826087" y="282.25446428571428"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="ic_temp" width="53" height="47"/>
+    </resources>
+</document>
