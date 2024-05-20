@@ -10,7 +10,8 @@ target 'WhatsappPhoto' do
   pod 'IQKeyboardManagerSwift'
   #  pod 'XDVerticalGradientColorSlider'
   pod 'Kingfisher', '~> 7.0'
-  pod 'ColorPicKit', :git => 'https://github.com/zakkhoyt/ColorPicKit', :branch => '1.2.3'
+ # pod 'ColorPicKit', :git => 'https://github.com/zakkhoyt/ColorPicKit', :branch => '1.2.3'
+  pod 'ColorPicKit', :git => 'https://github.com/RahulSohaliya1/ColorPicKit.git', :branch => '1.2.3'
   pod 'MBProgressHUD', '~> 1.2.0'
 
 end

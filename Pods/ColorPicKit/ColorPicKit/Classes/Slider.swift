@@ -301,7 +301,6 @@ import UIKit
             let height: CGFloat = 70
             let width: CGFloat = 100
             let halfWidth = width / 2.0
-            
             let frame = CGRect(x: point.x - halfWidth, y: point.y - (height + knobSize.height / 2.0 + 8), width: width, height: height)
             
             if let knowPreviewView = self.colorKnowPreviewView {

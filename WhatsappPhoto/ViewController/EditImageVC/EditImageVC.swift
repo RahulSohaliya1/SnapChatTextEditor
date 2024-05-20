@@ -96,6 +96,7 @@ class EditImageVC: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        btnHeartEyesEmoji.isHidden = arrEditPhoto.count == 0 ? true:false
         setupUI()
         setUpReactionUI()
         setupGestures()
@@ -242,7 +243,9 @@ class EditImageVC: BaseViewController {
         // Calculate the new x-coordinate based on the width of emojiReactionStackVw
         let newX = emojiReactionStackVw.frame.origin.x - halfWidth - 40
         
-        let newY = emojiReactionStackVw.frame.origin.y - height - knobSize.height / 2.0 + 140
+//        let newY = emojiReactionStackVw.frame.origin.y - height - knobSize.height / 2.0 + 140
+        
+        let newY = emojiReactionStackVw.frame.origin.y - height - knobSize.height / 2.0 + 45
         
 //        point.y - (height + knobSize.height / 2.0 + 8) + 230
         
@@ -451,6 +454,7 @@ class EditImageVC: BaseViewController {
     
     func resetView() {
         stkTool.isHidden = arrEditPhoto.count == 0 ? true:false
+        btnHeartEyesEmoji.isHidden = arrEditPhoto.count == 0 ? true : false
         self.arrLinesModel = [PointModel]()
         self.arrEmojiModel = [PointEmojiModel]()
         self.canvasImageView.image = UIImage()

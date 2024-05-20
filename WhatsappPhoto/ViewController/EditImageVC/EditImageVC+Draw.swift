@@ -174,42 +174,4 @@ extension EditImageVC {
         UIGraphicsEndImageContext()
         canvasImageView.setNeedsDisplay()
     }
-    
-//    func drawLineFrom(_ fromPoint: CGPoint, toPoint: CGPoint) {
-//        // 1
-//        let canvasSize = canvasImageView.frame.integral.size
-//        UIGraphicsBeginImageContextWithOptions(canvasSize, false, 0)
-//        if let context = UIGraphicsGetCurrentContext() {
-//            canvasImageView.image?.draw(in: CGRect(x: 0, y: 0, width: canvasSize.width, height: canvasSize.height))
-//            // 2
-////            context.move(to: CGPoint(x: fromPoint.x, y: fromPoint.y))
-////            context.addLine(to: CGPoint(x: toPoint.x, y: toPoint.y))
-////            context.setStrokeColor(UIColor.red.cgColor)
-////            context.setLineWidth(10)
-////            context.setLineCap(.butt)
-//
-//            lines.forEach { (line) in
-//                for (i, p) in line.enumerated() {
-//                    if i == 0 {
-//                        context.move(to: p)
-//                    } else {
-//                        context.addLine(to: p)
-//                    }
-//                }
-//            }
-//
-//            // 3
-//            context.setLineCap( CGLineCap.round)
-//            context.setLineWidth(4.0)
-//            context.setStrokeColor(drawColor.cgColor)
-//            context.setBlendMode( CGBlendMode.normal)
-//            // 4
-//            context.strokePath()
-//            // 5
-//            canvasImageView.image = UIGraphicsGetImageFromCurrentImageContext()
-//        }
-//        UIGraphicsEndImageContext()
-//        canvasImageView.setNeedsDisplay()
-//    }
-    
 }

@@ -41,7 +41,7 @@ import UIKit
 //}
 
 class CircleView: UIView {
-
+    
     // Color property with a default value
     var color: UIColor = .blue {
         didSet {
@@ -54,7 +54,7 @@ class CircleView: UIView {
         super.init(frame: frame)
         setup()
     }
-
+    
     // Initialize with coder (required for storyboard/xib)
     required init?(coder: NSCoder) {
         super.init(coder: coder)
@@ -103,7 +103,4 @@ class CircleView: UIView {
         context.fillPath()
     }
 }
-
-
-
 
