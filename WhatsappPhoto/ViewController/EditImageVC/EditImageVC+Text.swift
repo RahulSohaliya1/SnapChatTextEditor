@@ -7,25 +7,50 @@
 
 import Foundation
 import UIKit
+import IMITextView
 
 extension EditImageVC {
     func setupTextFeild() {
         
-        let textView = UITextView(frame: CGRect(x: 0, y: canvasImageView.center.y,
-                                                width: UIScreen.main.bounds.width, height: 30))
+        let textView = IMITextView()
         
-        textView.textAlignment = .center
-        textView.font = UIFont(name: "Helvetica", size: 30)
-        textView.textColor = textViewTextColor
+        textView.translatesAutoresizingMaskIntoConstraints = false
+        //        textView.configuration.lineBackgroundOptions = .fill
+        textView.configuration.textAlignment = .center
+        textView.configuration.strokeColor = .systemRed
+        textView.configuration.font = UIFont(name: "AmericanTypewriter", size: 30)!
+        textView.configuration.textColor = textViewTextColor
+        //        textView.configuration.lineBackgroundColor = textViewTextColor
+        textView.configuration.lineBoderColor = textViewTextColor
+        activeTextView = textView
+        lastTextViewFont = textView.configuration.font
+        
+        //        textView.textAlignment = .center
+        //        textView.font = UIFont(name: "AmericanTypewriter", size: 30)
+        //        textView.textColor = textViewTextColor
+        
         textView.layer.shadowColor = UIColor.black.cgColor
         textView.layer.shadowOffset = CGSize(width: 1.0, height: 0.0)
         textView.layer.shadowOpacity = 0.2
         textView.layer.shadowRadius = 1.0
         textView.layer.backgroundColor = UIColor.clear.cgColor
-        textView.autocorrectionType = .no
+        //        textView.autocorrectionType = .no
         textView.isScrollEnabled = false
         textView.delegate = self
         self.canvasImageView.addSubview(textView)
+        
+        if canvasImageView.superview == nil {
+            self.view.addSubview(canvasImageView)
+        }
+        
+        // Add constraints to center the text view
+        NSLayoutConstraint.activate([
+            //                   textView.centerXAnchor.constraint(equalTo: canvasImageView.centerXAnchor),
+            textView.centerYAnchor.constraint(equalTo: canvasImageView.centerYAnchor),
+            textView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width),
+            //                   textView.heightAnchor.constraint(equalToConstant: 40)
+        ])
+        
         addGestures(view: textView)
         textView.becomeFirstResponder()
     }

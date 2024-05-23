@@ -33,7 +33,7 @@ class SwiftyRecordButton: SwiftyCamButton {
     private func drawButton() {
         self.backgroundColor = UIColor.clear
         
-       circleBorder = CALayer()
+        circleBorder = CALayer()
         circleBorder.backgroundColor = UIColor.clear.cgColor
         circleBorder.borderWidth = 6.0
         circleBorder.borderColor = UIColor.white.cgColor

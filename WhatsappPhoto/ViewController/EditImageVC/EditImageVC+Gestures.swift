@@ -117,13 +117,13 @@ extension EditImageVC : UIGestureRecognizerDelegate  {
         return false
     }
     
-//    @objc func screenEdgeSwiped(_ recognizer: UIScreenEdgePanGestureRecognizer) {
-//        if recognizer.state == .recognized {
-//            if !stickersVCIsVisible {
-//                addStickersViewController()
-//            }
-//        }
-//    }
+    //    @objc func screenEdgeSwiped(_ recognizer: UIScreenEdgePanGestureRecognizer) {
+    //        if recognizer.state == .recognized {
+    //            if !stickersVCIsVisible {
+    //                addStickersViewController()
+    //            }
+    //        }
+    //    }
     
     // to Override Control Center screen edge pan from bottom
     override public var prefersStatusBarHidden: Bool {
@@ -143,12 +143,12 @@ extension EditImageVC : UIGestureRecognizerDelegate  {
         let previouTransform =  view.transform
         UIView.animate(withDuration: 0.2,
                        animations: {
-                        view.transform = view.transform.scaledBy(x: 1.2, y: 1.2)
+            view.transform = view.transform.scaledBy(x: 1.2, y: 1.2)
         },
                        completion: { _ in
-                        UIView.animate(withDuration: 0.2) {
-                            view.transform  = previouTransform
-                        }
+            UIView.animate(withDuration: 0.2) {
+                view.transform  = previouTransform
+            }
         })
     }
     
@@ -157,20 +157,20 @@ extension EditImageVC : UIGestureRecognizerDelegate  {
      delete the view if it's inside the delete view
      Snap the view back if it's out of the canvas
      */
-
+    
     func moveView(view: UIView, recognizer: UIPanGestureRecognizer)  {
-
-//        hideToolbar(hide: true)
+        
+        //        hideToolbar(hide: true)
         deleteView.isHidden = false
-
+        
         view.superview?.bringSubviewToFront(view)
         let pointToSuperView = recognizer.location(in: self.view)
-
+        
         view.center = CGPoint(x: view.center.x + recognizer.translation(in: canvasImageView).x,
                               y: view.center.y + recognizer.translation(in: canvasImageView).y)
-
+        
         recognizer.setTranslation(CGPoint.zero, in: canvasImageView)
-
+        
         if let previousPoint = lastPanPoint {
             //View is going into deleteView
             if deleteView.frame.contains(pointToSuperView) && !deleteView.frame.contains(previousPoint) {
@@ -183,7 +183,7 @@ extension EditImageVC : UIGestureRecognizerDelegate  {
                     view.center = recognizer.location(in: self.canvasImageView)
                 })
             }
-                //View is going out of deleteView
+            //View is going out of deleteView
             else if deleteView.frame.contains(previousPoint) && !deleteView.frame.contains(pointToSuperView) {
                 //Scale to original Size
                 UIView.animate(withDuration: 0.3, animations: {
@@ -193,14 +193,14 @@ extension EditImageVC : UIGestureRecognizerDelegate  {
             }
         }
         lastPanPoint = pointToSuperView
-
+        
         if recognizer.state == .ended {
             imageViewToPan = nil
             lastPanPoint = nil
-//            hideToolbar(hide: false)
+            //            hideToolbar(hide: false)
             deleteView.isHidden = true
             let point = recognizer.location(in: self.view)
-
+            
             if deleteView.frame.contains(point) { // Delete the view
                 view.removeFromSuperview()
                 if #available(iOS 10.0, *) {
@@ -213,7 +213,7 @@ extension EditImageVC : UIGestureRecognizerDelegate  {
                     print(view.center)
                     view.center = self.canvasImageView.center
                 })
-
+                
             }
         }
     }

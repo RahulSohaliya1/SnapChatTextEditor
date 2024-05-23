@@ -13,7 +13,7 @@ import UIKit
 //}
 
 class ImgMainCell: UICollectionViewCell {
-
+    
     @IBOutlet weak var canvasView: UIView!
     //To hold the image
     @IBOutlet var imageView: UIImageView!
@@ -93,7 +93,7 @@ class ImgMainCell: UICollectionViewCell {
     }
     
     func setModel(vc: EditImageVC) {
-//        vc.modeDelegate = self
+        //        vc.modeDelegate = self
     }
     
     //    //clear drawing
@@ -207,8 +207,6 @@ extension ImgMainCell {
         }
         UIGraphicsEndImageContext()
     }
-
-    
 }
 
 

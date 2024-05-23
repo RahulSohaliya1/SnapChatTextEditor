@@ -14,12 +14,12 @@ extension UIColor {
         var g: CGFloat = 0
         var b: CGFloat = 0
         var a: CGFloat = 1
-
+        
         let hexColor = hex.replacingOccurrences(of: "#", with: "")
         let scanner = Scanner(string: hexColor)
         var hexNumber: UInt64 = 0
         var valid = false
-
+        
         if scanner.scanHexInt64(&hexNumber) {
             if hexColor.count == 8 {
                 r = CGFloat((hexNumber & 0xff000000) >> 24) / 255
@@ -35,11 +35,10 @@ extension UIColor {
                 valid = true
             }
         }
-
-        #if DEBUG
-            assert(valid, "UIColor initialized with invalid hex string")
-        #endif
-
+        
+#if DEBUG
+        assert(valid, "UIColor initialized with invalid hex string")
+#endif
         self.init(red: r, green: g, blue: b, alpha: a)
     }
 }
@@ -98,7 +97,6 @@ extension UIImageView {
         
         return floatAlpha
     }
-
 }
 
 extension UIView {

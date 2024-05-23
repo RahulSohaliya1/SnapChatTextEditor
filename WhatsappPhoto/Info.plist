@@ -21,5 +21,27 @@
 			</array>
 		</dict>
 	</dict>
+	<key>UIAppFonts</key>
+	<array>
+		<string>cubano-regular-webfont.ttf</string>
+		<string>Homestead-Regular.ttf</string>
+		<string>Haymaker.ttf</string>
+		<string>Liberator.ttf</string>
+		<string>AbrahamLincoln.ttf</string>
+		<string>mensch.ttf</string>
+		<string>Franchise-Bold.ttf</string>
+		<string>GearedSlab.ttf</string>
+		<string>Airship 27-Regular.ttf</string>
+		<string>ValenciaRegular.otf</string>
+		<string>Muncie.ttf</string>
+		<string>governor.ttf</string>
+		<string>Tommaso.ttf</string>
+		<string>Bender-Inline.otf</string>
+		<string>MavenProLight-200.otf</string>
+		<string>Sullivan-Regular.otf</string>
+		<string>BLANCH_CONDENSED.otf</string>
+		<string>vevey.ttf</string>
+		<string>Arvil_Sans.ttf</string>
+	</array>
 </dict>
 </plist>

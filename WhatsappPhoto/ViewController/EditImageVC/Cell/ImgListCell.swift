@@ -8,7 +8,7 @@
 import UIKit
 
 class ImgListCell: UICollectionViewCell {
-
+    
     @IBOutlet weak var viewImage: UIView!
     @IBOutlet weak var img: UIImageView!
     
@@ -23,7 +23,7 @@ class ImgListCell: UICollectionViewCell {
     
     func setSelectedImage(isSelected: Bool) {
         if isSelected {
-            viewImage.layer.borderColor =  UIColor(hex: "1AD191").cgColor
+            viewImage.layer.borderColor = UIColor(hex: "1AD191").cgColor
             viewImage.layer.borderWidth = UIScreen.main.bounds.width * 2 / 375
         } else {
             viewImage.layer.borderColor = UIColor.clear.cgColor

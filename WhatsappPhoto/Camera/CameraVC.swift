@@ -31,7 +31,7 @@ class CameraVC: SwiftyCamViewController {
     
     weak var cameraActionDelegate: GetCameraActionDelegate?
     private var recordedVideoURL: URL?
-     
+    
     override var preferredStatusBarStyle : UIStatusBarStyle {
         return .lightContent
     }
@@ -107,64 +107,64 @@ class CameraVC: SwiftyCamViewController {
     @IBAction func slowBtnTapped(_ sender: UIButton) {
         guard let videoURL = recordedVideoURL else { return }
         self.adjustPlaybackSpeed(path: videoURL, speed: 0.5, progress: { [weak self] (progress, description) in
-               DispatchQueue.main.async {
-//                   self?.progressView.progress = progress
-//                   self?.progressLabel.text = description
-               }
-           }) { [weak self] (url, error) in
-               DispatchQueue.main.async {
-//                   self?.progressView.isHidden = true
-//                   self?.progressLabel.isHidden = true
-               }
-
-               if let error = error {
-                   print("Error: \(error)")
-               } else if let url = url {
-                   print("Processed video URL: \(url)")
-               }
-           }
+            DispatchQueue.main.async {
+                //                   self?.progressView.progress = progress
+                //                   self?.progressLabel.text = description
+            }
+        }) { [weak self] (url, error) in
+            DispatchQueue.main.async {
+                //                   self?.progressView.isHidden = true
+                //                   self?.progressLabel.isHidden = true
+            }
+            
+            if let error = error {
+                print("Error: \(error)")
+            } else if let url = url {
+                print("Processed video URL: \(url)")
+            }
+        }
     }
     
     @IBAction func normalBtnTapped(_ sender: UIButton) {
-         guard let videoURL = recordedVideoURL else { return }
+        guard let videoURL = recordedVideoURL else { return }
         self.adjustPlaybackSpeed(path: videoURL, speed: 1.0, progress: { [weak self] (progress, description) in
-                DispatchQueue.main.async {
- //                   self?.progressView.progress = progress
- //                   self?.progressLabel.text = description
-                }
-            }) { [weak self] (url, error) in
-                DispatchQueue.main.async {
- //                   self?.progressView.isHidden = true
- //                   self?.progressLabel.isHidden = true
-                }
-
-                if let error = error {
-                    print("Error: \(error)")
-                } else if let url = url {
-                    print("Processed video URL: \(url)")
-                }
+            DispatchQueue.main.async {
+                //                   self?.progressView.progress = progress
+                //                   self?.progressLabel.text = description
             }
+        }) { [weak self] (url, error) in
+            DispatchQueue.main.async {
+                //                   self?.progressView.isHidden = true
+                //                   self?.progressLabel.isHidden = true
+            }
+            
+            if let error = error {
+                print("Error: \(error)")
+            } else if let url = url {
+                print("Processed video URL: \(url)")
+            }
+        }
     }
     
     @IBAction func highBtnTapped(_ sender: UIButton) {
-         guard let videoURL = recordedVideoURL else { return }
+        guard let videoURL = recordedVideoURL else { return }
         self.adjustPlaybackSpeed(path: videoURL, speed: 2.0, progress: { [weak self] (progress, description) in
-                DispatchQueue.main.async {
- //                   self?.progressView.progress = progress
- //                   self?.progressLabel.text = description
-                }
-            }) { [weak self] (url, error) in
-                DispatchQueue.main.async {
- //                   self?.progressView.isHidden = true
- //                   self?.progressLabel.isHidden = true
-                }
-
-                if let error = error {
-                    print("Error: \(error)")
-                } else if let url = url {
-                    print("Processed video URL: \(url)")
-                }
+            DispatchQueue.main.async {
+                //                   self?.progressView.progress = progress
+                //                   self?.progressLabel.text = description
             }
+        }) { [weak self] (url, error) in
+            DispatchQueue.main.async {
+                //                   self?.progressView.isHidden = true
+                //                   self?.progressLabel.isHidden = true
+            }
+            
+            if let error = error {
+                print("Error: \(error)")
+            } else if let url = url {
+                print("Processed video URL: \(url)")
+            }
+        }
     }
 }
 

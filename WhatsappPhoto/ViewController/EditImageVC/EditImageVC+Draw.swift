@@ -17,7 +17,6 @@ extension EditImageVC {
             if let touch = touches.first {
                 lastPoint = touch.location(in: self.canvasImageView)
                 print("touchesBegan",lastPoint)
-//                lines.append([CGPoint]())
                 arrLinesModel.append(.init(point: [CGPoint](), color: [drawColor]))
             }
         }
@@ -25,9 +24,10 @@ extension EditImageVC {
         if isEmojiDrawing {
             swiped = false
             UIView.animate(withDuration: 0.3) {
-                 self.emojiReactionStackVw.alpha = 0
-                 self.emojiReactionStackVw.isHidden = true
-             }
+                self.emojiReactionStackVw.alpha = 0
+                self.emojiReactionStackVw.isHidden = true
+                self.emojiKnobPreviewView?.isHidden = true
+            }
             if let touch = touches.first {
                 lastEmojiPoint = touch.location(in: self.canvasImageView)
                 print("touchesBeganEmoji", lastEmojiPoint)
@@ -44,12 +44,6 @@ extension EditImageVC {
             swiped = true
             if let touch = touches.first {
                 let currentPoint = touch.location(in: canvasImageView)
-                //                guard let point = touches.first?.location(in: canvasImageView) else { return }
-                
-//                guard var lastLine = lines.popLast() else { return }
-//
-//                lastLine.append(currentPoint)
-//                lines.append(lastLine)
                 
                 let lastLine1 = arrLinesModel.removeLast()
                 guard var points = lastLine1.point, var colors = lastLine1.color else { return }
@@ -67,10 +61,11 @@ extension EditImageVC {
         
         if isEmojiDrawing {
             swiped = true
-            self.emojiReactionStackVw.alpha = 0
             UIView.animate(withDuration: 0.3) {
-                 self.emojiReactionStackVw.isHidden = true
-             }
+                self.emojiReactionStackVw.alpha = 0
+                self.emojiReactionStackVw.isHidden = true
+                self.emojiKnobPreviewView?.isHidden = true
+            }
             if let touch = touches.first {
                 let currentPoint = touch.location(in: canvasImageView)
                 
@@ -103,9 +98,10 @@ extension EditImageVC {
         
         if isEmojiDrawing {
             UIView.animate(withDuration: 0.3) {
-                 self.emojiReactionStackVw.alpha = 1
-                 self.emojiReactionStackVw.isHidden = false
-        }
+                self.emojiReactionStackVw.alpha = 1
+                self.emojiReactionStackVw.isHidden = false
+                self.emojiKnobPreviewView?.isHidden = true
+            }
             if !swiped {
                 DispatchQueue.main.async {
                     self.drawEmojiFrom(self.lastEmojiPoint, toPoint: self.lastEmojiPoint)
@@ -158,17 +154,17 @@ extension EditImageVC {
         context.setBlendMode( CGBlendMode.normal)
         
         for i in arrEmojiModel {
-              guard let points = i.points, let emojis = i.emojis else { continue }
-              for (index, point) in points.enumerated() {
-                  let fontSize: CGFloat = 24
-                  let font = UIFont.systemFont(ofSize: fontSize)
-                  let attributes = [NSAttributedString.Key.font: font]
-                  let attributedString = NSAttributedString(string: emojis[index], attributes: attributes)
-                  let textSize = attributedString.size()
-                  let rect = CGRect(x: point.x - textSize.width / 2, y: point.y - textSize.height / 2, width: textSize.width, height: textSize.height)
-                  attributedString.draw(in: rect)
-              }
-          }
+            guard let points = i.points, let emojis = i.emojis else { continue }
+            for (index, point) in points.enumerated() {
+                let fontSize: CGFloat = 24
+                let font = UIFont.systemFont(ofSize: fontSize)
+                let attributes = [NSAttributedString.Key.font: font]
+                let attributedString = NSAttributedString(string: emojis[index], attributes: attributes)
+                let textSize = attributedString.size()
+                let rect = CGRect(x: point.x - textSize.width / 2, y: point.y - textSize.height / 2, width: textSize.width, height: textSize.height)
+                attributedString.draw(in: rect)
+            }
+        }
         
         canvasImageView.image = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()

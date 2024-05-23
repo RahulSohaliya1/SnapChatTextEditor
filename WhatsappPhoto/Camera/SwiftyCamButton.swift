@@ -31,7 +31,7 @@ public protocol SwiftyCamButtonDelegate: AnyObject {
     func buttonDidBeginLongPress()
     
     /// Called When UILongPressGestureRecognizer enters UIGestureRecognizerState.end
-
+    
     func buttonDidEndLongPress()
     
     /// Called when the maximum duration is reached
@@ -70,7 +70,7 @@ open class SwiftyCamButton: UIButton {
     }
     
     /// Initialization Declaration
-
+    
     
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -84,7 +84,7 @@ open class SwiftyCamButton: UIButton {
             return
         }
         
-       delegate?.buttonWasTapped()
+        delegate?.buttonWasTapped()
     }
     
     /// UILongPressGestureRecognizer Function

@@ -31,7 +31,6 @@ class Utils {
     }
     
     class func hideLoader() {
-
         DispatchQueue.main.async {
             MBProgressHUD.hide(for: windowMain()!, animated: true)
         }

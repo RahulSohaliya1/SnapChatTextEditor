@@ -15,9 +15,7 @@ class BaseViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
-    func showLoader() {
-
-    }
+    func showLoader() { }
     
     func hideLoader(complition: @escaping (()->())) {
         self.dismiss(animated: false, completion: complition)

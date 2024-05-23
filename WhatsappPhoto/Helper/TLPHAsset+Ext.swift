@@ -41,27 +41,27 @@ extension TLPHAsset {
         return nil
     }
     
-//    AVAssetExportPresetLowQuality
-//    AVAssetExportPresetMediumQuality
-//    AVAssetExportPresetHighestQuality
-//    AVAssetExportPreset640x480
-//    AVAssetExportPreset960x540
-//    AVAssetExportPreset1280x720
-//    AVAssetExportPreset1920x1080
-//    AVAssetExportPreset3840x2160
+    //    AVAssetExportPresetLowQuality
+    //    AVAssetExportPresetMediumQuality
+    //    AVAssetExportPresetHighestQuality
+    //    AVAssetExportPreset640x480
+    //    AVAssetExportPreset960x540
+    //    AVAssetExportPreset1280x720
+    //    AVAssetExportPreset1920x1080
+    //    AVAssetExportPreset3840x2160
     
     public func exportVideoFileLowQuality(options: PHVideoRequestOptions? = nil,
-                                outputURL: URL? = nil,
-                                outputFileType: AVFileType = .mp4,
-                                progressBlock:((Double) -> Void)? = nil,
-                                completionBlock:@escaping ((URL,String) -> Void)) {
+                                          outputURL: URL? = nil,
+                                          outputFileType: AVFileType = .mp4,
+                                          progressBlock:((Double) -> Void)? = nil,
+                                          completionBlock:@escaping ((URL,String) -> Void)) {
         guard
             let phAsset = self.phAsset,
             phAsset.mediaType == .video,
             let writeURL = outputURL ?? videoFilename(phAsset: phAsset),
             let mimetype = MIMEType(writeURL)
-            else {
-                return
+        else {
+            return
         }
         var requestOptions = PHVideoRequestOptions()
         if let options = options {
