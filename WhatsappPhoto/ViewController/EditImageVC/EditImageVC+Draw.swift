@@ -35,6 +35,26 @@ extension EditImageVC {
             }
             
         }
+        self.view.endEditing(true)
+        if currentMode == .textMode {
+            clvTextPicker.isHidden = true
+            colorPicker.isHidden = true
+            colorSlider.isHidden = true
+            btnHeartEyesEmoji.isHidden = false
+            canvasImageView.isUserInteractionEnabled = false
+            btnTextAdd.isSelected = false
+            isTyping = false
+            viewToolBar.isHidden = false
+            stkChatAndImgList.isHidden = false
+            hideToolbar(hide: false)
+            viewDone.isHidden =  true
+            currentMode = .none
+            //save
+            if let tv = self.canvasImageView.subviews as? [UITextView] {
+                self.arrEditPhoto[selectedImageIndex].textViews = tv
+            }
+            self.arrEditPhoto[selectedImageIndex].doneImage = canvasView.toImage()
+        }
     }
     
     override public func touchesMoved(_ touches: Set<UITouch>,

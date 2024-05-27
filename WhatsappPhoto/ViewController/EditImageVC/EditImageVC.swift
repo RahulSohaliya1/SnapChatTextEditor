@@ -256,39 +256,39 @@ class EditImageVC: BaseViewController {
     }
     
     @objc private func handleImageViewTap(_ recognizer: UITapGestureRecognizer) {
-//        UIView.animate(withDuration: 0.3) {
-//            self.colorPicker.isHidden = true
-//            self.colorSlider.isHidden = false
-//        }
-//        clvTextPicker.isHidden = false
-//        btnHeartEyesEmoji.isHidden = true
-//        
-//        // Check if the tap gesture is recognized
-//        if recognizer.state == .recognized {
-//            currentMode = .textMode
-//            isTyping = true
-//            canvasImageView.isUserInteractionEnabled = true
-//            viewToolBar.isHidden = true
-//            stkChatAndImgList.isHidden = true
-//            viewDone.isHidden = false
-//            btnAddText.isHidden = false
-//            btnTextAlignment.isHidden = false
-//            btnAlternateStyle.isHidden = false
-//            btnStrokeColor.isHidden = false
-//            setupTextFeild()
-//        } else {
-//            currentMode = .none
-//            isTyping = false
-//            canvasImageView.isUserInteractionEnabled = false
-//            viewToolBar.isHidden = false
-//            stkChatAndImgList.isHidden = false
-//            viewDone.isHidden = true
-//            btnAddText.isHidden = true
-//            btnTextAlignment.isHidden = true
-//            btnAlternateStyle.isHidden = true
-//            btnStrokeColor.isHidden = true
-//            view.endEditing(true)
-//        }
+        UIView.animate(withDuration: 0.3) {
+            self.colorPicker.isHidden = true
+            self.colorSlider.isHidden = false
+        }
+        clvTextPicker.isHidden = false
+        btnHeartEyesEmoji.isHidden = true
+        
+        // Check if the tap gesture is recognized
+        if recognizer.state == .recognized {
+            currentMode = .textMode
+            isTyping = true
+            canvasImageView.isUserInteractionEnabled = true
+            viewToolBar.isHidden = true
+            stkChatAndImgList.isHidden = true
+            viewDone.isHidden = false
+            btnAddText.isHidden = false
+            btnTextAlignment.isHidden = false
+            btnAlternateStyle.isHidden = false
+            btnStrokeColor.isHidden = false
+            setupTextFeild()
+        } else {
+            currentMode = .none
+            isTyping = false
+            canvasImageView.isUserInteractionEnabled = false
+            viewToolBar.isHidden = false
+            stkChatAndImgList.isHidden = false
+            viewDone.isHidden = true
+            btnAddText.isHidden = true
+            btnTextAlignment.isHidden = true
+            btnAlternateStyle.isHidden = true
+            btnStrokeColor.isHidden = true
+            view.endEditing(true)
+        }
     }
     
     @objc func handleLongPressGesture(_ recognizer: UILongPressGestureRecognizer) {
@@ -445,6 +445,7 @@ class EditImageVC: BaseViewController {
                     view.layoutIfNeeded()
                     view.setNeedsLayout()
                 }
+                self.clvTextPicker.isHidden = false
             }
         }
     }
@@ -465,6 +466,8 @@ class EditImageVC: BaseViewController {
                     view.layoutIfNeeded()
                     view.setNeedsLayout()
                 }
+                
+//                self.clvTextPicker.isHidden = true
             }
         }
     }
