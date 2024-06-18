@@ -14,7 +14,7 @@ target 'WhatsappPhoto' do
   pod 'ColorPicKit', :git => 'https://github.com/RahulSohaliya1/ColorPicKit.git', :branch => '1.2.3'
   pod 'ZLImageEditor', :git => 'https://github.com/ankitprodev/ZLImageEditor', :branch => 'master'
   pod 'SwiftLinkPreview', '~> 3.4.0'
-  pod 'ColorSlider', '~> 4.4'
+  pod 'ColorSlider', :git => 'https://github.com/RahulSohaliya1/ColorSlider.git', :branch => 'master'
   pod 'MBProgressHUD', '~> 1.2.0'
   pod 'CustomBrowserKit'
   pod 'SwiftWebVC', :git => 'https://github.com/ankitprodev/SwiftWebVC.git', :branch => 'master'
