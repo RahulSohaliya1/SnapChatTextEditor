@@ -31,7 +31,6 @@ class ImgListCell: UICollectionViewCell {
         }
     }
     
+    @IBAction func onBtnImageSelect(_ sender: Any) { }
     
-    @IBAction func onBtnImageSelect(_ sender: Any) {
-    }
 }

@@ -19,11 +19,12 @@ class VideoPlayerView: UIView {
     
     //MARK: Private Properties
     private var playerLayer: AVPlayerLayer?
-    private var player: AVQueuePlayer?
-    private var playerItems: [AVPlayerItem]?
+    var player: AVQueuePlayer?
+    var playerItems: [AVPlayerItem]?
     
     //MARK: Properties
     var progress: Float = 0
+    lazy var playerLooper = AVPlayerLooper(player: player!, templateItem: (playerItems?.first)!)
     
     //MARK: Lifecycle Methods
     override init(frame: CGRect) {
@@ -86,7 +87,11 @@ class VideoPlayerView: UIView {
         
         self.player = player
         let playerLayer = self.playerLayer(with: player)
+        playerLayer.videoGravity = .resizeAspectFill
         self.layer.insertSublayer(playerLayer, at: 0)
+        guard playerLooper.error == nil else { return }
+
+        playVideo()
     }
     
     public func playVideo() {
@@ -114,6 +119,7 @@ private extension VideoPlayerView {
     func setupUI() {
         playPauseButton = UIButton(type: .custom)
         playPauseButton.backgroundColor = .clear
+        playPauseButton.isHidden = true
         self.addSubview(playPauseButton)
         
         playPauseButton.translatesAutoresizingMaskIntoConstraints = false

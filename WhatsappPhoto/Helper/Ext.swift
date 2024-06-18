@@ -103,11 +103,23 @@ extension UIView {
     /**
      Convert UIView to UIImage
      */
-    func toImage() -> UIImage {
+    func toImage() -> UIImage? {
         UIGraphicsBeginImageContextWithOptions(self.bounds.size, self.isOpaque, 0.0)
         self.drawHierarchy(in: self.bounds, afterScreenUpdates: false)
         let snapshotImageFromMyView = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         return snapshotImageFromMyView!
     }
+}
+
+public func SCREENWIDTH() -> CGFloat
+{
+    let screenSize = UIScreen.main.bounds
+    return screenSize.width
+}
+
+public func SCREENHEIGHT() -> CGFloat
+{
+    let screenSize = UIScreen.main.bounds
+    return screenSize.height
 }

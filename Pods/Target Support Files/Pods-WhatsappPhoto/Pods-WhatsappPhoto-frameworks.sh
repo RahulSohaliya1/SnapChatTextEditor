@@ -177,17 +177,29 @@ code_sign_if_enabled() {
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/ColorPicKit/ColorPicKit.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/ColorSlider/ColorSlider.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/CustomBrowserKit/CustomBrowserKit.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/IMITextView/IMITextView.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/IQKeyboardManagerSwift/IQKeyboardManagerSwift.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/MBProgressHUD/MBProgressHUD.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/SwiftLinkPreview/SwiftLinkPreview.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/SwiftWebVC/SwiftWebVC.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/TLPhotoPicker/TLPhotoPicker.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/ZLImageEditor/ZLImageEditor.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/ColorPicKit/ColorPicKit.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/ColorSlider/ColorSlider.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/CustomBrowserKit/CustomBrowserKit.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/IMITextView/IMITextView.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/IQKeyboardManagerSwift/IQKeyboardManagerSwift.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/MBProgressHUD/MBProgressHUD.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/SwiftLinkPreview/SwiftLinkPreview.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/SwiftWebVC/SwiftWebVC.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/TLPhotoPicker/TLPhotoPicker.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/ZLImageEditor/ZLImageEditor.framework"
 fi
 if [ "${COCOAPODS_PARALLEL_CODE_SIGN}" == "true" ]; then
   wait

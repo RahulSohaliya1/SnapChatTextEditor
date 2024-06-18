@@ -12,12 +12,17 @@ import Kingfisher
 import IQKeyboardManagerSwift
 import ColorSlider
 import IMITextView
+import CropViewController
+import ZLImageEditor
+import AVKit
+import ImageIO
+import MobileCoreServices
+import CustomBrowserKit
+import SwiftWebVC
 
-class EditImageVC: BaseViewController {
+class EditImageVC: BaseViewController, CropViewControllerDelegate {
     
     @IBOutlet weak var constBottom: NSLayoutConstraint!
-    @IBOutlet weak var imgTopShadow: UIImageView!
-    @IBOutlet weak var imgBottomShadow: UIImageView!
     @IBOutlet weak var btnDraw: UIButton!
     @IBOutlet weak var btnHeartEyesEmoji: UIButton!
     @IBOutlet weak var btnHeartEmoji: UIButton!
@@ -32,6 +37,7 @@ class EditImageVC: BaseViewController {
     @IBOutlet weak var btnAlternateStyle: UIButton!
     @IBOutlet weak var btnStrokeColor: UIButton!
     @IBOutlet weak var btnDelete: UIButton!
+    @IBOutlet weak var btnUndo: UIButton!
     @IBOutlet weak var btnAddText: UIButton!
     @IBOutlet weak var btnClose: UIButton!
     @IBOutlet weak var clvTextPicker: UICollectionView!
@@ -40,10 +46,27 @@ class EditImageVC: BaseViewController {
     @IBOutlet weak var viewAdd: UIView!
     @IBOutlet weak var constAddview: NSLayoutConstraint!
     @IBOutlet weak var colorPicker: HueSlider!
+    @IBOutlet weak var colorSlider: ColorSlider!
+    @IBOutlet weak var textColorSlider: ColorSlider!
+    @IBOutlet weak var NSLC_TextColorSliderHeight: NSLayoutConstraint!
+    @IBOutlet weak var NSLC_TextColorSliderBtm: NSLayoutConstraint!
+    @IBOutlet weak var NSLC_TextColorSliderWidth: NSLayoutConstraint!
+    @IBOutlet weak var NSLC_TextColorSliderTop: NSLayoutConstraint!
+    @IBOutlet weak var NSLC_ColorSliderMainVwHeight: NSLayoutConstraint!
     @IBOutlet weak var emojiReactionStackVw: UIStackView!
-    @IBOutlet weak var viewToolBar: UIView!
-    @IBOutlet weak var viewDone: UIView!
+    @IBOutlet weak var editingOptions: UIStackView!
+    @IBOutlet weak var btnCrop: UIButton!
+    @IBOutlet weak var btnEraser: UIButton!
+    @IBOutlet weak var btnAttachment: UIButton!
+    @IBOutlet weak var btnSticker: UIButton!
+    @IBOutlet weak var btnCutoutSticker: UIButton!
+    @IBOutlet weak var BtnOpenColorPicker: UIButton!
     @IBOutlet weak var stkChatAndImgList: UIStackView!
+    @IBOutlet weak var btnDoneImg: UIButton!
+    @IBOutlet weak var linkPreviewView: UIView!
+    @IBOutlet weak var linkURLimage: UIImageView!
+    @IBOutlet weak var URLTitle: UILabel!
+    @IBOutlet weak var URLDescription: UILabel!
     @IBOutlet weak var deleteView: UIView!
     @IBOutlet weak var canvasView: UIView!
     //To hold the image
@@ -51,7 +74,6 @@ class EditImageVC: BaseViewController {
     @IBOutlet weak var imageViewHeightConstraint: NSLayoutConstraint!
     //To hold the drawings and stickers
     @IBOutlet weak var canvasImageView: UIImageView!
-    @IBOutlet weak var stkTool: UIStackView!
     
     let HARIZONTAL_SPCE_IMAGE: CGFloat          = 0
     let VERTICAL_SPCE_IMAGE: CGFloat            = UIScreen.main.bounds.height * 5 / 812
@@ -71,7 +93,9 @@ class EditImageVC: BaseViewController {
     
     var emojiKnobPreviewView: CircleView? = nil
     
-    var colorSlider: ColorSlider!
+    var resultImageEditModel: ZLEditImageModel?
+    
+    let config = ZLImageEditorConfiguration.default()
     
     var selectFontBlock: ((UIFont) -> Void)?
     
@@ -108,8 +132,6 @@ class EditImageVC: BaseViewController {
         ]
     }
     
-    var fontChooserContainerIsHidden = true
-    
     private var _showKnowPreviewView = true
     @IBInspectable public var showKnowPreviewView: Bool {
         get {
@@ -137,6 +159,7 @@ class EditImageVC: BaseViewController {
     var isEmojiDrawing: Bool = false
     var lastPoint: CGPoint!
     var lastEmojiPoint: CGPoint!
+    let minimumDistance: CGFloat = 25.0
     var swiped = false
     var isTyping: Bool = false
     var imageViewToPan: UIImageView?
@@ -145,14 +168,48 @@ class EditImageVC: BaseViewController {
     var lastTextViewTransform: CGAffineTransform?
     var lastTextViewTransCenter: CGPoint?
     var lastTextViewFont:UIFont?
-    var activeTextView: IMITextView?
+    var isTextViewAdded = false
+    var activeTextView: IMITextView? {
+        didSet {
+            if let font = activeTextView?.configuration.font {
+                updateFontPickerSelection(for: font)
+            }
+        }
+    }
     var arrEditPhoto = [EditPhotoModel]()
     var arrLinesModel = [PointModel]()
     var arrEmojiModel = [PointEmojiModel]()
+    private var cropRotateApplied: Bool = false
+    var croppedImage: UIImage?
     var didTapClose: (()->())?
+    
+    var attachmentURL: URL?
+    var attachmentIcon: UIImageView?
+    var uRLpanGestureRecognizer: UIPanGestureRecognizer?
+    
+    var urlPreviewView: URLPreviewView?
+    
+    var videoPlayerView = VideoPlayerView()
+    
+    var originalVideoURL: URL?
+    
+    // Variables to handle drawing
+       var lastPointCutout: CGPoint = .zero
+       var brushWidth: CGFloat = 10.0
+       var path: UIBezierPath?
+       var shapeLayer: CAShapeLayer?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Register for notification to receive the selected URL
+        NotificationCenter.default.addObserver(self, selector: #selector(didSelectAttachmentURL(_:)), name: NSNotification.Name(rawValue: "DidSelectAttachmentURL"), object: nil)
+        
+        // Register for notification when URLPreviewView is tapped
+        NotificationCenter.default.addObserver(self, selector: #selector(didTapURLPreviewView(_:)), name: NSNotification.Name(rawValue: "URLPreviewViewTapped"), object: nil)
+        
+        urlPreviewView?.isHidden = true
+        
         btnHeartEyesEmoji.isHidden = arrEditPhoto.count == 0 ? true:false
         setupUI()
         setUpReactionUI()
@@ -162,6 +219,52 @@ class EditImageVC: BaseViewController {
         let firstIndexPath = IndexPath(row: 0, section: 0)
         clvTextPicker.selectItem(at: firstIndexPath, animated: false, scrollPosition: .left)
         collectionView(clvTextPicker, didSelectItemAt: firstIndexPath)
+    }
+    
+    @objc func didTapURLPreviewView(_ notification: Notification) {
+           guard let url = notification.object as? URL else { return }
+        
+        // Check if the input is a valid URL
+        if let url = URL(string: url.absoluteString), UIApplication.shared.canOpenURL(url) {
+            // Direct URL, open in web view
+            let webVC = SwiftModalWebVC(urlString: url.absoluteString, theme: .lightBlue, dismissButtonStyle: .cross)
+            webVC.modalTransitionStyle = .coverVertical
+            webVC.modalPresentationStyle = .overFullScreen
+            self.present(webVC, animated: true, completion: nil)
+        } else {
+            // Not a valid URL, treat as a search query
+            let searchQuery = url.absoluteString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
+            let googleURLString = "https://www.google.com/search?q=\(searchQuery)"
+            
+            let webVC = SwiftModalWebVC(urlString: googleURLString, theme: .lightBlue, dismissButtonStyle: .cross)
+            webVC.modalTransitionStyle = .coverVertical
+            webVC.modalPresentationStyle = .overFullScreen
+            self.present(webVC, animated: true, completion: nil)
+        }
+    }
+    
+    @objc func didSelectAttachmentURL(_ notification: Notification) {
+        guard let url = notification.object as? URL else { return }
+        if urlPreviewView == nil {
+            let preview = URLPreviewView()
+            canvasView.addSubview(preview)
+            addGestures(view: preview)
+            preview.translatesAutoresizingMaskIntoConstraints = false
+            
+            NSLayoutConstraint.activate([
+                preview.leadingAnchor.constraint(equalTo: canvasView.leadingAnchor, constant: 16),
+                preview.trailingAnchor.constraint(equalTo: canvasView.trailingAnchor, constant: -16),
+                preview.topAnchor.constraint(equalTo: canvasView.topAnchor, constant: 200),
+                preview.bottomAnchor.constraint(lessThanOrEqualTo: canvasView.bottomAnchor, constant: -16),
+                preview.heightAnchor.constraint(equalToConstant: 70),
+            ])
+            urlPreviewView = preview
+        }
+        urlPreviewView?.loadURL(url)
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -211,31 +314,13 @@ class EditImageVC: BaseViewController {
     }
     
     func setupColorSlider() {
-        colorSlider = ColorSlider(orientation: .vertical, previewSide: .left)
-        //        colorSlider.frame = CGRect(x: 220, y: 20, width: 15, height: 260)
         colorSlider.translatesAutoresizingMaskIntoConstraints = false
         colorSlider.isHidden = true
         colorSlider.gradientView.layer.borderWidth = 2.5
         colorSlider.gradientView.layer.borderColor = UIColor.white.cgColor
         colorSlider.color = drawColor
         colorSlider.color = textViewTextColor
-        
-        view.addSubview(colorSlider)
-        // Add constraints
-        NSLayoutConstraint.activate([
-            // Set the width of the slider
-            colorSlider.widthAnchor.constraint(equalToConstant: 15),
-            
-            // Set the height of the slider
-            colorSlider.heightAnchor.constraint(equalToConstant: 200),
-            
-            // Center the slider vertically in the view
-            colorSlider.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -80),
-            
-            // Set the slider's left side to be a fixed distance from the right edge of the view
-            colorSlider.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -23)
-        ])
-        
+        colorSlider.backgroundColor = .clear
         colorSlider.addTarget(self, action: #selector(changedColor(_:)), for: .valueChanged)
     }
     
@@ -246,47 +331,71 @@ class EditImageVC: BaseViewController {
         longTapGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPressGesture(_:)))
         emojiReactionStackVw.addGestureRecognizer(longTapGesture!)
         
-        // Add tap gesture recognizer to imageView
-           tapGestures = UITapGestureRecognizer(target: self, action: #selector(handleImageViewTap(_:)))
-           imageView.addGestureRecognizer(tapGestures!)
-           imageView.isUserInteractionEnabled = true
+        if arrEditPhoto[0].isPhoto {
+            tapGestures = UITapGestureRecognizer(target: self, action: #selector(handleImageViewTap(_:)))
+            imageView.addGestureRecognizer(tapGestures!)
+            imageView.isUserInteractionEnabled = true
+        }
         
         feedbackGenerator = UIImpactFeedbackGenerator(style: .medium)
         feedbackGenerator?.prepare()
     }
     
     @objc private func handleImageViewTap(_ recognizer: UITapGestureRecognizer) {
-        UIView.animate(withDuration: 0.3) {
-            self.colorPicker.isHidden = true
-            self.colorSlider.isHidden = false
-        }
-        clvTextPicker.isHidden = false
-        btnHeartEyesEmoji.isHidden = true
-        
-        // Check if the tap gesture is recognized
         if recognizer.state == .recognized {
+            UIView.animate(withDuration: 0.3) {
+                self.colorSlider.isHidden = true
+            }
             currentMode = .textMode
+            btnTextAdd.isSelected = true
+            btnUndo.isHidden = true
+            btnClose.isHidden = false
             isTyping = true
+            btnDraw.isHidden = true
+            canvasImageView.isHidden = false
             canvasImageView.isUserInteractionEnabled = true
-            viewToolBar.isHidden = true
+            imageView.isUserInteractionEnabled = false
+            clvTextPicker.isHidden = false
+            btnHeartEyesEmoji.isHidden = true
+            btnDoneImg.isHidden = true
             stkChatAndImgList.isHidden = true
-            viewDone.isHidden = false
-            btnAddText.isHidden = false
             btnTextAlignment.isHidden = false
             btnAlternateStyle.isHidden = false
             btnStrokeColor.isHidden = false
-            setupTextFeild()
+            //            setupTextFeild()
+            
+            if !isTextViewAdded {
+                setupTextFeild()
+            } else {
+                activeTextView?.isHidden = false
+                activeTextView?.becomeFirstResponder()
+            }
+            
         } else {
-            currentMode = .none
-            isTyping = false
-            canvasImageView.isUserInteractionEnabled = false
-            viewToolBar.isHidden = false
+            clvTextPicker.isHidden = true
+            colorSlider.isHidden = true
+            btnHeartEyesEmoji.isHidden = false
+            if arrEditPhoto[0].isPhoto {
+                canvasImageView.isUserInteractionEnabled = false
+                imageView.isUserInteractionEnabled = true
+                canvasImageView.isHidden = true
+            } else {
+                canvasImageView.isUserInteractionEnabled = true
+                imageView.isUserInteractionEnabled = false
+                canvasImageView.isHidden = false
+            }
+            btnClose.isHidden = false
+            btnTextAdd.isSelected = false
+            btnDoneImg.isHidden = false
             stkChatAndImgList.isHidden = false
-            viewDone.isHidden = true
-            btnAddText.isHidden = true
+            btnUndo.isHidden = true
+            hideToolbar(hide: false)
+            currentMode = .none
             btnTextAlignment.isHidden = true
             btnAlternateStyle.isHidden = true
             btnStrokeColor.isHidden = true
+            clvTextPicker.isHidden = true
+            btnHeartEyesEmoji.isHidden = true
             view.endEditing(true)
         }
     }
@@ -373,13 +482,12 @@ class EditImageVC: BaseViewController {
         let knobSize = CGSize(width: 30, height: 30)
         
         // Calculate the new x-coordinate based on the width of emojiReactionStackVw
-        let newX = emojiReactionStackVw.frame.origin.x - halfWidth - 40
+        // Adjust the newX calculation to consider the frame of the superview of emojiReactionStackVw
+        let emojiReactionStackVwFrameInSuperview = emojiReactionStackVw.superview?.convert(emojiReactionStackVw.frame, to: self.view)
+        let newX = (emojiReactionStackVwFrameInSuperview?.origin.x ?? 0) - halfWidth - 40
         
-        //        let newY = emojiReactionStackVw.frame.origin.y - height - knobSize.height / 2.0 + 140
-        
-        let newY = emojiReactionStackVw.frame.origin.y - height - knobSize.height / 2.0 + 45
-        
-        //        point.y - (height + knobSize.height / 2.0 + 8) + 230
+        // Adjust the newY calculation to consider the frame of the superview of emojiReactionStackVw
+        let newY = (emojiReactionStackVwFrameInSuperview?.origin.y ?? 0) - height - knobSize.height / 2.0 + 45
         
         let frame = CGRect(x: newX, y: point.y + newY, width: width, height: height)
         let rotationAngle: CGFloat = .pi / -2
@@ -434,21 +542,54 @@ class EditImageVC: BaseViewController {
             if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
                 self.clvImagesList.isHidden = true
                 self.viewAdd.isHidden = true
+                
+                // Update constBottom constraint if necessary
                 if constBottom.constant == 30 {
                     constBottom.constant = keyboardSize.height - 25
                     view.layoutIfNeeded()
                     view.setNeedsLayout()
                 }
                 
-                if NSLC_TextPickerBtm.constant == 20 {
-                    NSLC_TextPickerBtm.constant = keyboardSize.height - 200
+                // Update NSLC_TextColorSliderBtm constraint if necessary
+                if NSLC_TextColorSliderBtm.constant == 40 {
+                    NSLC_TextColorSliderBtm.constant = keyboardSize.height - 20
                     view.layoutIfNeeded()
                     view.setNeedsLayout()
                 }
-                self.clvTextPicker.isHidden = false
+                
+                if currentMode == .textMode {
+                    // Show color slider and other UI elements
+                    self.clvTextPicker.isHidden = false
+                    self.btnTextAdd.isSelected = true
+                    self.isTyping = true
+                    btnTextAlignment.isHidden = false
+                    btnAlternateStyle.isHidden = false
+                    btnStrokeColor.isHidden = false
+                    self.textColorSlider.isHidden = false
+                }
+                
+                // Adjust constraints for the color slider
+                self.NSLC_TextColorSliderTop.constant = -175
+                self.NSLC_TextColorSliderBtm.constant = 50
+                
+                // Set height and width to screen dimensions
+                let screenWidth = UIScreen.main.bounds.width
+                let screenHeight = UIScreen.main.bounds.height
+                
+                self.NSLC_TextColorSliderHeight.constant = screenHeight - keyboardSize.height - 50
+                self.NSLC_TextColorSliderWidth.constant = screenWidth
+                
+                // Ensure color slider is centered horizontally
+                if let centerXConstraint = view.constraints.first(where: { $0.identifier == "CenterXConstraint" }) {
+                    centerXConstraint.constant = 0
+                }
+                
+                view.layoutIfNeeded()
+                view.setNeedsLayout()
             }
         }
     }
+    
     
     @objc func keyboardWillHide(notification: Notification) {
         DispatchQueue.main.async { [self] in
@@ -461,13 +602,13 @@ class EditImageVC: BaseViewController {
                     view.setNeedsLayout()
                 }
                 
-                if NSLC_TextPickerBtm.constant != 20 {
-                    NSLC_TextPickerBtm.constant = 20
+                if NSLC_TextColorSliderBtm.constant != 8 {
+                    NSLC_TextColorSliderBtm.constant = 8
                     view.layoutIfNeeded()
                     view.setNeedsLayout()
                 }
-                
-//                self.clvTextPicker.isHidden = true
+                self.clvTextPicker.isHidden = true
+                self.textColorSlider.isHidden = true
             }
         }
     }
@@ -513,15 +654,27 @@ class EditImageVC: BaseViewController {
         loadImageandVideo(index: selectedImageIndex)
         loadTextView(index: selectedImageIndex)
         print(arrEditPhoto)
-        colorPicker.transform = .init(rotationAngle: 270 * .pi/180)
-        drawColor = colorPicker.color
-        textViewTextColor = colorPicker.color
+        //        colorPicker.transform = .init(rotationAngle: 270 * .pi/180)
+        
+        textColorSlider.translatesAutoresizingMaskIntoConstraints = true
+        textColorSlider.backgroundColor = .clear
+        textColorSlider.isHidden = true
+        linkPreviewView.layer.cornerRadius = 5
+        textColorSlider.transform = .init(rotationAngle: 270 * .pi / -180)
+        drawColor = colorSlider.color
+        textViewTextColor = colorSlider.color
         emojiKnobPreviewView?.emoji = drawEmoji
         importFonts()
         clvTextPicker.isHidden = true
         btnTextAlignment.isHidden = true
         btnAlternateStyle.isHidden = true
         btnStrokeColor.isHidden = true
+        btnUndo.isHidden = true
+        btnClose.isHidden = false
+        btnHeartEyesEmoji.isHidden = true
+        canvasImageView.isHidden = true
+        imageView.isUserInteractionEnabled = true
+        BtnOpenColorPicker.isHidden = true
     }
     
     func setupClv() {
@@ -543,21 +696,25 @@ class EditImageVC: BaseViewController {
             btnDraw.isHidden = true
             btnHeartEyesEmoji.isHidden = true
             btnTextAdd.isHidden = true
-            btnDelete.isHidden = true
-            return }
+            return
+        }
         resetView()
         let model = arrEditPhoto[index]
+        
+        if !model.isPhoto {
+            originalVideoURL = model.videoUrl
+        }
+        
         if model.isPhoto {
             print("Photo")
             btnDraw.isHidden = false
             btnHeartEyesEmoji.isHidden = false
             btnTextAdd.isHidden = false
-            btnDelete.isHidden = false
             
             setImage(image: model.image ?? UIImage())
             loadTextView(index: index)
             
-            DispatchQueue.main.asyncAfter(deadline:  .now() + 0.30) {
+            DispatchQueue.main.asyncAfter(deadline: .now()) {
                 if model.lines?.count ?? 0 > 0 {
                     self.arrLinesModel = model.lines!
                     self.drawLineFrom()
@@ -570,15 +727,15 @@ class EditImageVC: BaseViewController {
             }
         } else {
             print("Video")
-            btnDraw.isHidden = true
+            btnDraw.isHidden = false
             btnHeartEyesEmoji.isHidden = true
-            btnTextAdd.isHidden = true
-            btnDelete.isHidden = false
+            btnTextAdd.isHidden = false
             
             DispatchQueue.main.async {
                 let videoView = VideoPlayerView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height))
                 videoView.loadVideo(with: model.videoUrl!)
                 self.canvasView.addSubViewWithAutolayout(subView: videoView)
+                self.canvasView.bringSubviewToFront(self.canvasImageView)
             }
         }
     }
@@ -608,7 +765,6 @@ class EditImageVC: BaseViewController {
     }
     
     func resetView() {
-        stkTool.isHidden = arrEditPhoto.count == 0 ? true:false
         btnHeartEyesEmoji.isHidden = arrEditPhoto.count == 0 ? true : false
         self.arrLinesModel = [PointModel]()
         self.arrEmojiModel = [PointEmojiModel]()
@@ -634,7 +790,6 @@ class EditImageVC: BaseViewController {
             self.BtnSkullEmoji.alpha = 0
             self.btnCryFaceEmoji.alpha = 0
             self.btnHundredEmoji.alpha = 0
-            self.BtnSkullEmoji.alpha = 0
             
             for subview in self.emojiReactionStackVw.subviews {
                 if let effectView = subview as? UIVisualEffectView {
@@ -650,7 +805,6 @@ class EditImageVC: BaseViewController {
             self.BtnSkullEmoji.isHidden = true
             self.btnCryFaceEmoji.isHidden = true
             self.btnHundredEmoji.isHidden = true
-            self.BtnSkullEmoji.isHidden = true
             
             // Remove blur effect
             for subview in self.emojiReactionStackVw.subviews {
@@ -691,21 +845,170 @@ class EditImageVC: BaseViewController {
         highlightButton(sender)
         emojiSelector(button: sender)
         currentMode = .emojiDrawMode
-        colorPicker.isHidden = true
         colorSlider.isHidden = true
+        NSLC_ColorSliderMainVwHeight.constant = 0
         isEmojiDrawing = true
+        isDrawing = false
         canvasImageView.isUserInteractionEnabled = false
-        viewToolBar.isHidden = true
         stkChatAndImgList.isHidden = true
-        viewDone.isHidden = false
-        btnAddText.isHidden = true
         btnTextAlignment.isHidden = true
         btnAlternateStyle.isHidden = true
         btnStrokeColor.isHidden = true
         emojiKnobPreviewView?.isHidden = true
+        BtnOpenColorPicker.isHidden = false
+    }
+    
+    private func showCropRotateController() {
+        if let model = arrEditPhoto.first {
+            if model.isPhoto {
+                let previewImage = imageView.image
+                guard let image = previewImage else { return }
+                let cropViewController = CropViewController(image: image)
+                cropViewController.aspectRatioLockDimensionSwapEnabled = true
+                cropViewController.aspectRatioPickerButtonHidden = true
+                cropViewController.delegate = self
+                cropRotateApplied = false
+                present(cropViewController, animated: true, completion: nil)
+            }
+        }
+    }
+    
+    // MARK: CropViewControllerDelegate
+    
+    public func cropViewController(_ cropViewController: CropViewController, didCropToImage image: UIImage, withRect cropRect: CGRect, angle: Int) {
+        if let model = arrEditPhoto.first {
+            if model.isPhoto {
+                self.croppedImage = image
+                self.imageView.image = image
+                cropRotateApplied = true
+            }
+        }
+        dismiss(animated: true)
+    }
+
+    func editImage(_ image: UIImage, editModel: ZLEditImageModel?) {
+        ZLEditImageViewController.showEditImageVC(parentVC: self, image: image, editModel: editModel) { [weak self] resImage, editModel in
+            self?.imageView.image = resImage
+            self?.resultImageEditModel = editModel
+        }
     }
     
     // MARK: - IBAction
+    
+    @IBAction func btnCutoutStickerTapped(_ sender: UIButton) {
+        
+    }
+    
+    @IBAction func btnStickerTapped(_ sender: UIButton) {
+        let sb = UIStoryboard(name: "Main", bundle: nil)
+        if let vc = sb.instantiateViewController(withIdentifier: "StickersVC") as? StickersVC {
+            if arrEditPhoto[0].isPhoto {
+                vc.onSelectSticker = { image in
+                    self.dismiss(animated: true)
+                    let imageView = UIImageView()
+                    imageView.image = image
+                    imageView.translatesAutoresizingMaskIntoConstraints = false
+                    self.imageView.addSubview(imageView)
+                    
+                    if imageView.superview == nil {
+                        self.view.addSubview(imageView)
+                    }
+                    
+                    NSLayoutConstraint.activate([
+                        // Center the textView horizontally within the canvasImageView
+                        imageView.centerXAnchor.constraint(equalTo: self.imageView.centerXAnchor),
+                        // Set the width of the textView
+                        imageView.widthAnchor.constraint(equalToConstant: 150),
+                        imageView.heightAnchor.constraint(equalToConstant: 150),
+                        // Position the bottom of textView 20 points above the top of clvTextPicker
+                        imageView.centerYAnchor.constraint(equalTo: self.imageView.centerYAnchor),
+                        
+                    ])
+                    self.addGestures(view: imageView)
+                }
+            } else {
+                vc.onSelectSticker = { image in
+                    self.dismiss(animated: true)
+                    sender.isSelected.toggle()
+                    self.canvasImageView.isHidden = false
+                    self.canvasImageView.isUserInteractionEnabled = sender.isSelected ? true : false
+                    self.btnDoneImg.isHidden = sender.isSelected ? false : false
+                    let imageView = UIImageView()
+                    imageView.image = image
+                    imageView.translatesAutoresizingMaskIntoConstraints = false
+                    self.canvasImageView.addSubview(imageView)
+                    
+                    
+                    if imageView.superview == nil {
+                        self.view.addSubview(imageView)
+                    }
+                    
+                    NSLayoutConstraint.activate([
+                        // Center the textView horizontally within the canvasImageView
+                        imageView.centerXAnchor.constraint(equalTo: self.canvasImageView.centerXAnchor),
+                        // Set the width of the textView
+                        imageView.widthAnchor.constraint(equalToConstant: 150),
+                        imageView.heightAnchor.constraint(equalToConstant: 150),
+                        // Position the bottom of textView 20 points above the top of clvTextPicker
+                        imageView.centerYAnchor.constraint(equalTo: self.canvasImageView.centerYAnchor),
+                        
+                    ])
+                    self.addGestures(view: imageView)
+                }
+            }
+            self.present(vc, animated: true)
+        }
+    }
+    
+    @IBAction func btnAttachmentTapped(_ sender: UIButton) {
+        let sb = UIStoryboard(name: "Main", bundle: nil)
+        let vc = (sb.instantiateViewController(withIdentifier: "LinkSearchVC") as? LinkSearchVC)!
+        vc.modalTransitionStyle = .coverVertical
+        vc.modalPresentationStyle = .overFullScreen
+        self.navigationController?.present(vc, animated: true)
+    }
+    
+    @IBAction func btnEraserTapped(_ sender: UIButton) {
+        ZLImageEditorConfiguration.default()
+            .editImageTools([.mosaic])
+        
+        editImage(imageView.image!, editModel: nil)
+    }
+    
+    @IBAction func btnCropTapped(_ sender: UIButton) {
+        if arrEditPhoto[0].isPhoto {
+            showCropRotateController()
+        } else {
+            let vc = RotateVideoVC()
+            vc.videoURL = arrEditPhoto[0].videoUrl
+            vc.completion = { exportURL in
+                let videoView = VideoPlayerView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height))
+                videoView.loadVideo(with: exportURL)
+                for view in self.canvasView.subviews {
+                    if view.isKind(of: VideoPlayerView.self) {
+                        view.removeFromSuperview()
+                    }
+                }
+                self.canvasView.addSubViewWithAutolayout(subView: videoView)
+                self.canvasView.bringSubviewToFront(self.canvasImageView)
+            }
+            vc.modalTransitionStyle = .crossDissolve
+            vc.modalPresentationStyle = .overFullScreen
+            present(vc, animated: false, completion: nil)
+        }
+    }
+    
+    @IBAction func btnDoneImgTapped(_ sender: UIButton) {
+        if arrEditPhoto[0].isPhoto {
+            let sb = UIStoryboard(name: "Main", bundle: nil)
+            let vc = sb.instantiateViewController(withIdentifier: "ImagePreviewVC") as! ImagePreviewVC
+            let previewImage = canvasView.toImage()
+            vc.previewImage = previewImage
+            self.navigationController?.pushViewController(vc, animated: true)
+        } else {
+            exportVideoWithTextOverlay()
+        }
+    }
     
     @IBAction func btnHeartEyesTapped(_ sender: UIButton) {
         btnSelection(sender: sender)
@@ -739,21 +1042,57 @@ class EditImageVC: BaseViewController {
         btnSelection(sender: sender)
     }
     
+    @IBAction func btnColorPickerTapped(_ sender: UIButton) {
+        currentMode = .drawMode
+        colorSlider.isHidden = false
+        NSLC_ColorSliderMainVwHeight.constant = 160
+        btnHeartEyesEmoji.isHidden = false
+        BtnOpenColorPicker.isHidden = true
+        closeEmojiPickerView()
+        isEmojiDrawing = false
+        isDrawing = true
+    }
+    
     @IBAction func onBtnDraw(_ sender: UIButton) {
         sender.isSelected.toggle()
-        currentMode = sender.isSelected ? .drawMode : .none
-        colorPicker.isHidden = true
-        colorSlider.isHidden = false
-        btnHeartEyesEmoji.isHidden = true
-        isDrawing = sender.isSelected ? true : false
-        canvasImageView.isUserInteractionEnabled = sender.isSelected ? false : true
-        viewToolBar.isHidden = sender.isSelected ? true : false
-        stkChatAndImgList.isHidden = sender.isSelected ? true : false
-        viewDone.isHidden = sender.isSelected ? false : true
-        btnAddText.isHidden = true
+        if !btnHeartEmoji.isHidden {
+            currentMode = sender.isSelected ? .emojiDrawMode : .none
+            isEmojiDrawing = sender.isSelected ? true : false
+            isDrawing = sender.isSelected ? false : false
+            colorSlider.isHidden = true
+            NSLC_ColorSliderMainVwHeight.constant = 0
+            BtnOpenColorPicker.isHidden = sender.isSelected ? false : true
+        } else {
+            currentMode = sender.isSelected ? .drawMode : .none
+            BtnOpenColorPicker.isHidden = sender.isSelected ? true : true
+            isEmojiDrawing = sender.isSelected ? false : false
+            isDrawing = sender.isSelected ? true : false
+            colorSlider.isHidden = sender.isSelected ? false : true
+            NSLC_ColorSliderMainVwHeight.constant = 160
+        }
+        btnDoneImg.isHidden = sender.isSelected ? true : false
+        tapGestures?.isEnabled = sender.isSelected ? false : true
+        btnTextAdd.isHidden = sender.isSelected ? true : false
+        btnHeartEyesEmoji.isHidden = sender.isSelected ? false : true
+        emojiReactionStackVw.isHidden = sender.isSelected ? false : true
+        btnUndo.isHidden = sender.isSelected ? false : true
+        btnClose.isHidden = false
+        canvasImageView.isHidden = false
+        if arrEditPhoto[0].isPhoto {
+            canvasImageView.isUserInteractionEnabled = sender.isSelected ? true : false
+            imageView.isUserInteractionEnabled = sender.isSelected ? false : true
+        } else {
+            canvasImageView.isUserInteractionEnabled = sender.isSelected ? true : true
+            imageView.isUserInteractionEnabled = sender.isSelected ? false : false
+            currentMode = .drawMode
+        }
+        btnDoneImg.isHidden = sender.isSelected ? true : false
         btnTextAlignment.isHidden = true
         btnAlternateStyle.isHidden = true
         btnStrokeColor.isHidden = true
+        for view in self.canvasImageView.subviews {
+            view.isUserInteractionEnabled = sender.isSelected ? false : true
+        }
     }
     
     @IBAction func openEmojiPicker(_ sender: UIButton) {
@@ -822,22 +1161,38 @@ class EditImageVC: BaseViewController {
     @IBAction func onBtnText(_ sender: UIButton) {
         sender.isSelected.toggle()
         UIView.animate(withDuration: 0.3) {
-            self.colorPicker.isHidden = true
-            self.colorSlider.isHidden = false
+            self.colorSlider.isHidden = sender.isSelected ? true : true
         }
-        clvTextPicker.isHidden = false
+        btnDraw.isHidden = sender.isSelected ? true : false
+        btnDoneImg.isHidden = sender.isSelected ? true : false
+        clvTextPicker.isHidden = !sender.isSelected
         btnHeartEyesEmoji.isHidden = true
         currentMode = sender.isSelected ? .textMode : .none
         isTyping = sender.isSelected ? true : false
-        canvasImageView.isUserInteractionEnabled = sender.isSelected ? true : false
-        viewToolBar.isHidden = sender.isSelected ? true : false
-        stkChatAndImgList.isHidden = sender.isSelected ? true : false
-        viewDone.isHidden = sender.isSelected ? false : true
-        btnAddText.isHidden = sender.isSelected ? false : true
+        BtnOpenColorPicker.isHidden = true
+        btnClose.isHidden = false
+        canvasImageView.isHidden = false
+        if arrEditPhoto[0].isPhoto {
+            canvasImageView.isUserInteractionEnabled = sender.isSelected ? true : false
+            imageView.isUserInteractionEnabled = sender.isSelected ? false : true
+            btnDoneImg.isHidden = sender.isSelected ? true : false
+        } else {
+            canvasImageView.isUserInteractionEnabled = sender.isSelected ? true : true
+            imageView.isUserInteractionEnabled = sender.isSelected ? false : false
+            btnDoneImg.isHidden = sender.isSelected ? true : false
+        }
         btnTextAlignment.isHidden = sender.isSelected ? false : true
         btnAlternateStyle.isHidden = sender.isSelected ? false : true
         btnStrokeColor.isHidden = sender.isSelected ? false : true
-        if sender.isSelected { setupTextFeild() } else {
+        
+        if sender.isSelected {
+            if !isTextViewAdded {
+                setupTextFeild()
+            } else {
+                activeTextView?.isHidden = false
+                activeTextView?.becomeFirstResponder()
+            }
+        } else {
             view.endEditing(true)
         }
     }
@@ -909,15 +1264,12 @@ class EditImageVC: BaseViewController {
             removeKnowPreviewView()
             clvTextPicker.isHidden = true
             btnHeartEyesEmoji.isHidden = false
-            colorPicker.isHidden = true
             colorSlider.isHidden = true
             canvasImageView.isUserInteractionEnabled = false
             btnHeartEyesEmoji.isSelected = false
             isEmojiDrawing = false
-            viewToolBar.isHidden = false
             stkChatAndImgList.isHidden = false
             hideToolbar(hide: false)
-            viewDone.isHidden =  true
             currentMode = .none
             //save
             self.arrEditPhoto[selectedImageIndex].emoji = self.arrEmojiModel
@@ -925,17 +1277,14 @@ class EditImageVC: BaseViewController {
         }
         
         if currentMode == .drawMode {
-            colorPicker.isHidden = true
             colorSlider.isHidden = true
             clvTextPicker.isHidden = true
             btnHeartEyesEmoji.isHidden = false
             canvasImageView.isUserInteractionEnabled = false
             btnDraw.isSelected = false
             isDrawing = false
-            viewToolBar.isHidden = false
             stkChatAndImgList.isHidden = false
             hideToolbar(hide: false)
-            viewDone.isHidden =  true
             currentMode = .none
             //save
             self.arrEditPhoto[selectedImageIndex].lines = self.arrLinesModel
@@ -944,16 +1293,13 @@ class EditImageVC: BaseViewController {
         
         if currentMode == .textMode {
             clvTextPicker.isHidden = true
-            colorPicker.isHidden = true
             colorSlider.isHidden = true
             btnHeartEyesEmoji.isHidden = false
             canvasImageView.isUserInteractionEnabled = false
             btnTextAdd.isSelected = false
             isTyping = false
-            viewToolBar.isHidden = false
             stkChatAndImgList.isHidden = false
             hideToolbar(hide: false)
-            viewDone.isHidden =  true
             currentMode = .none
             //save
             if let tv = self.canvasImageView.subviews as? [UITextView] {
@@ -975,11 +1321,6 @@ class EditImageVC: BaseViewController {
     @IBAction func btnStrokeColorTapped(_ sender: UIButton) {
         activeTextView?.configuration.strokeWidth = activeTextView?.configuration.strokeWidth == 0 ? 10.0 : 0.0
     }
-
-    @IBAction func onBtnAddText(_ sender: UIButton) {
-        setupTextFeild()
-        clvTextPicker.isHidden = false
-    }
     
     @IBAction func onBtnClose(_ sender: UIButton) {
         didTapClose?()
@@ -989,25 +1330,32 @@ class EditImageVC: BaseViewController {
     @IBAction func onBtnAddMedia(_ sender: UIButton) {
         setupAndOpenImagePicker()
     }
-    
-    @IBAction func onColorPickerValueChange(_ sender: HueSlider) {
-        if currentMode == .drawMode {
-            self.drawColor = sender.color
-        }
-        if currentMode == .textMode {
-            self.textViewTextColor = sender.color
-            self.activeTextView?.configuration.textColor = sender.color
-        }
-    }
 }
 
 extension EditImageVC {
+    
+    func updateFontPickerSelection(for font: UIFont) {
+        let fontName = font.fontName
+        if let fontIndex = fonts.firstIndex(of: fontName) {
+            let indexPath = IndexPath(item: fontIndex, section: 0)
+            if let previousSelectedIndexPath = clvTextPicker.indexPathsForSelectedItems?.first {
+                clvTextPicker.deselectItem(at: previousSelectedIndexPath, animated: true)
+                if let cell = clvTextPicker.cellForItem(at: previousSelectedIndexPath) as? FontPickerCollectionViewCell {
+                    cell.isSelected = false
+                }
+            }
+            clvTextPicker.selectItem(at: indexPath, animated: true, scrollPosition: .centeredHorizontally)
+            if let cell = clvTextPicker.cellForItem(at: indexPath) as? FontPickerCollectionViewCell {
+                cell.isSelected = true
+            }
+        }
+    }
+    
     func hideToolbar(hide: Bool) {
-        viewToolBar.isHidden = hide
         stkChatAndImgList.isHidden = hide
     }
     
-    @objc func changedColor(_ slider: ColorSlider) {
+    @IBAction func changedColor(_ slider: ColorSlider) {
         let color = slider.color
         
         if currentMode == .drawMode {
@@ -1134,3 +1482,91 @@ extension EditImageVC: UICollectionViewDelegateFlowLayout {
         return CGSize(width: width, height: 50)
     }
 }
+
+extension EditImageVC {
+    
+    func exportVideoWithTextOverlay() {
+        let model = arrEditPhoto[0]
+        guard let originalVideoURL = model.videoUrl else { return }
+        
+        let asset = AVAsset(url: originalVideoURL)
+        let composition = AVMutableComposition()
+        
+        guard let videoTrack = asset.tracks(withMediaType: .video).first else {
+            return
+        }
+        
+        let videoSize = videoTrack.naturalSize
+        let duration = asset.duration
+        
+        let compositionTrack = composition.addMutableTrack(withMediaType: .video, preferredTrackID: kCMPersistentTrackID_Invalid)
+        try? compositionTrack?.insertTimeRange(CMTimeRangeMake(start: .zero, duration: duration), of: videoTrack, at: .zero)
+        
+        let videoLayer = CALayer()
+        videoLayer.frame = CGRect(origin: .zero, size: videoSize)
+        
+        // Create a layer for drawing overlay
+        let drawingLayer = CALayer()
+        drawingLayer.frame = CGRect(origin: .zero, size: videoSize)
+        
+        // Render the canvasImageView on the drawing layer
+        let drawingImage = canvasImageView.toImage()
+        let drawingImageLayer = CALayer()
+        drawingImageLayer.contents = drawingImage?.cgImage
+        drawingImageLayer.frame = CGRect(origin: .zero, size: videoSize)
+        drawingLayer.addSublayer(drawingImageLayer)
+        
+        let parentLayer = CALayer()
+        parentLayer.frame = CGRect(origin: .zero, size: videoSize)
+        parentLayer.addSublayer(videoLayer)
+        parentLayer.addSublayer(drawingLayer)
+        
+        let videoComposition = AVMutableVideoComposition()
+        videoComposition.renderSize = videoSize
+        videoComposition.frameDuration = CMTimeMake(value: 1, timescale: 30)
+        videoComposition.animationTool = AVVideoCompositionCoreAnimationTool(postProcessingAsVideoLayer: videoLayer, in: parentLayer)
+        
+        let instruction = AVMutableVideoCompositionInstruction()
+        instruction.timeRange = CMTimeRangeMake(start: .zero, duration: duration)
+        
+        let layerInstruction = AVMutableVideoCompositionLayerInstruction(assetTrack: compositionTrack!)
+        instruction.layerInstructions = [layerInstruction]
+        videoComposition.instructions = [instruction]
+        
+        // Export the video
+        let exportPath = NSTemporaryDirectory() + "output.mov"
+        let exportURL = URL(fileURLWithPath: exportPath)
+        
+        if FileManager.default.fileExists(atPath: exportPath) {
+            try? FileManager.default.removeItem(at: exportURL)
+        }
+        
+        guard let exportSession = AVAssetExportSession(asset: composition, presetName: AVAssetExportPresetHighestQuality) else {
+            return
+        }
+        
+        exportSession.videoComposition = videoComposition
+        exportSession.outputFileType = .mov
+        exportSession.outputURL = exportURL
+        
+        exportSession.exportAsynchronously {
+            switch exportSession.status {
+            case .completed:
+                DispatchQueue.main.async {
+                    let sb = UIStoryboard(name: "Main", bundle: nil)
+                    let vc = sb.instantiateViewController(withIdentifier: "ImagePreviewVC") as! ImagePreviewVC
+                    vc.previewVideoURL = exportURL
+                    self.navigationController?.pushViewController(vc, animated: true)
+                }
+                
+            case .failed, .cancelled:
+                if let error = exportSession.error {
+                    print("Export failed: \(error)")
+                }
+            default:
+                break
+            }
+        }
+    }
+}
+

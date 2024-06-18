@@ -10,50 +10,63 @@ import UIKit
 import IMITextView
 
 extension EditImageVC {
+    
     func setupTextFeild() {
-        
-        let textView = IMITextView()
-        
-        textView.translatesAutoresizingMaskIntoConstraints = false
-        //        textView.configuration.lineBackgroundOptions = .fill
-        textView.configuration.textAlignment = .center
-        textView.configuration.strokeColor = .systemRed
-        textView.configuration.font = UIFont(name: "AmericanTypewriter", size: 30)!
-        textView.configuration.textColor = textViewTextColor
-        //        textView.configuration.lineBackgroundColor = textViewTextColor
-        textView.configuration.lineBoderColor = textViewTextColor
-        activeTextView = textView
-        lastTextViewFont = textView.configuration.font
-        
-        //        textView.textAlignment = .center
-        //        textView.font = UIFont(name: "AmericanTypewriter", size: 30)
-        //        textView.textColor = textViewTextColor
-        
-        textView.layer.shadowColor = UIColor.black.cgColor
-        textView.layer.shadowOffset = CGSize(width: 1.0, height: 0.0)
-        textView.layer.shadowOpacity = 0.2
-        textView.layer.shadowRadius = 1.0
-        textView.layer.backgroundColor = UIColor.clear.cgColor
-        //        textView.autocorrectionType = .no
-        textView.isScrollEnabled = false
-        textView.delegate = self
-        self.canvasImageView.addSubview(textView)
-        
-        if canvasImageView.superview == nil {
-            self.view.addSubview(canvasImageView)
-        }
-        
-        // Add constraints to center the text view
-        NSLayoutConstraint.activate([
-            //                   textView.centerXAnchor.constraint(equalTo: canvasImageView.centerXAnchor),
-            textView.centerYAnchor.constraint(equalTo: canvasImageView.centerYAnchor),
-            textView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width),
-            //                   textView.heightAnchor.constraint(equalToConstant: 40)
-        ])
-        
-        addGestures(view: textView)
-        textView.becomeFirstResponder()
-    }
+        guard !isTextViewAdded else { return }
+         
+         let textView = IMITextView()
+         
+         textView.translatesAutoresizingMaskIntoConstraints = false
+         textView.textView.delegate = self
+         //        textView.configuration.lineBackgroundOptions = .fill
+         textView.configuration.textAlignment = .center
+         textView.configuration.strokeColor = .systemRed
+         textView.configuration.font = UIFont(name: "AmericanTypewriter", size: 30)!
+         textView.configuration.textColor = textViewTextColor
+         //        textView.configuration.lineBackgroundColor = textViewTextColor
+         textView.configuration.lineBoderColor = textViewTextColor
+         activeTextView = textView
+         lastTextViewFont = textView.configuration.font
+            
+         textView.layer.shadowColor = UIColor.black.cgColor
+         textView.layer.shadowOffset = CGSize(width: 1.0, height: 0.0)
+         textView.layer.shadowOpacity = 0.2
+         textView.layer.shadowRadius = 1.0
+         textView.layer.backgroundColor = UIColor.clear.cgColor
+         textView.isScrollEnabled = false
+         textView.delegate = self
+         if arrEditPhoto[0].isPhoto {
+             self.imageView.addSubview(textView)
+             if imageView.superview == nil {
+                 self.view.addSubview(imageView)
+             }
+             
+             NSLayoutConstraint.activate([
+                      // Center the textView horizontally within the canvasImageView
+                      textView.centerXAnchor.constraint(equalTo: imageView.centerXAnchor),
+                      // Set the width of the textView
+                      textView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width),
+                      // Position the bottom of textView 20 points above the top of clvTextPicker
+                      textView.centerYAnchor.constraint(equalTo: imageView.centerYAnchor),
+                  ])
+             
+         } else {
+             self.canvasImageView.addSubview(textView)
+             if canvasImageView.superview == nil {
+                 self.view.addSubview(canvasImageView)
+             }
+
+             NSLayoutConstraint.activate([
+                      textView.centerXAnchor.constraint(equalTo: canvasImageView.centerXAnchor),
+                      textView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width),
+                      textView.centerYAnchor.constraint(equalTo: imageView.centerYAnchor),
+                  ])
+         }
+         
+         addGestures(view: textView)
+         textView.becomeFirstResponder()
+        isTextViewAdded = true
+     }
     
     func addGestures(view: UIView) {
         //Gestures
@@ -76,8 +89,10 @@ extension EditImageVC {
         rotationGestureRecognizer.delegate = self
         view.addGestureRecognizer(rotationGestureRecognizer)
         
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(EditImageVC.tapGesture))
-        view.addGestureRecognizer(tapGesture)
-        
+        // Check if urlPreviewView is visible
+           if urlPreviewView?.isHidden == false {
+               let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tapGesture))
+               view.addGestureRecognizer(tapGesture)
+           }
     }
 }

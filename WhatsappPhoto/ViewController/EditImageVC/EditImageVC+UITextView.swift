@@ -20,38 +20,41 @@ extension EditImageVC: UITextViewDelegate {
         }
     }
     
-    public func textViewDidBeginEditing(_ textView: UITextView) {
-        isTyping = true
-        lastTextViewTransform =  textView.transform
-        lastTextViewTransCenter = textView.center
-        lastTextViewFont = textView.font!
-        // Assigning UITextView to IMITextView if IMITextView is a subclass of UITextView
-              if let imiTextView = textView as? IMITextView {
-                  activeTextView = imiTextView
-              }
-        textView.superview?.bringSubviewToFront(textView)
-        //        textView.textColor = self.textViewTextColor
-        textView.font = UIFont(name: "AmericanTypewriter", size: 30)
-        UIView.animate(withDuration: 0.3,
-                       animations: {
-            textView.transform = CGAffineTransform.identity
-            textView.center = CGPoint(x: UIScreen.main.bounds.width / 2,
-                                      y:  UIScreen.main.bounds.height / 5)
-        }, completion: nil)
-    }
+//    public func textViewDidBeginEditing(_ textView: UITextView) {
+//        isTyping = true
+//        lastTextViewTransform =  textView.transform
+//        lastTextViewTransCenter = textView.center
+//        lastTextViewFont = textView.font!
+//        // Assigning UITextView to IMITextView if IMITextView is a subclass of UITextView
+//        if let imiTextView = textView as? IMITextView {
+//            activeTextView = imiTextView
+//            if let activeTextViewFont = activeTextView?.configuration.font {
+//                updateFontPickerSelection(for: activeTextViewFont)
+//            }
+//        }
+//        textView.superview?.bringSubviewToFront(textView)
+//        //        textView.textColor = self.textViewTextColor
+//        textView.font = UIFont(name: "AmericanTypewriter", size: 30)
+//        UIView.animate(withDuration: 0.3,
+//                       animations: {
+//            textView.transform = CGAffineTransform.identity
+//            textView.center = CGPoint(x: UIScreen.main.bounds.width / 2,
+//                                      y:  UIScreen.main.bounds.height / 5)
+//        }, completion: nil)
+//    }
     
-    public func textViewDidEndEditing(_ textView: UITextView) {
-        guard lastTextViewTransform != nil && lastTextViewTransCenter != nil && lastTextViewFont != nil
-        else {
-            return
-        }
-        activeTextView = nil
-        textView.font = self.lastTextViewFont!
-        //        textView.textColor = self.textViewTextColor
-        UIView.animate(withDuration: 0.3,
-                       animations: {
-            textView.transform = self.lastTextViewTransform!
-            textView.center = self.lastTextViewTransCenter!
-        }, completion: nil)
-    }
+//    public func textViewDidEndEditing(_ textView: UITextView) {
+//        guard lastTextViewTransform != nil && lastTextViewTransCenter != nil && lastTextViewFont != nil
+//        else {
+//            return
+//        }
+//        activeTextView = nil
+//        textView.font = self.lastTextViewFont!
+//        //        textView.textColor = self.textViewTextColor
+//        UIView.animate(withDuration: 0.3,
+//                       animations: {
+//            textView.transform = self.lastTextViewTransform!
+//            textView.center = self.lastTextViewTransCenter!
+//        }, completion: nil)
+//    }
 }

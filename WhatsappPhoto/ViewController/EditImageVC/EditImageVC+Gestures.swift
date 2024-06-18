@@ -19,12 +19,23 @@ extension EditImageVC : UIGestureRecognizerDelegate  {
             if view is UIImageView {
                 //Tap only on visible parts on the image
                 if recognizer.state == .began {
-                    for imageView in subImageViews(view: canvasImageView) {
-                        let location = recognizer.location(in: imageView)
-                        let alpha = imageView.alphaAtPoint(location)
-                        if alpha > 0 {
-                            imageViewToPan = imageView
-                            break
+                    if arrEditPhoto[0].isPhoto {
+                        for imageView in subImageViews(view: imageView) {
+                            let location = recognizer.location(in: imageView)
+                            let alpha = imageView.alphaAtPoint(location)
+                            if alpha > 0 {
+                                imageViewToPan = imageView
+                                break
+                            }
+                        }
+                    } else {
+                        for imageView in subImageViews(view: canvasImageView) {
+                            let location = recognizer.location(in: imageView)
+                            let alpha = imageView.alphaAtPoint(location)
+                            if alpha > 0 {
+                                imageViewToPan = imageView
+                                break
+                            }
                         }
                     }
                 }
@@ -87,13 +98,25 @@ extension EditImageVC : UIGestureRecognizerDelegate  {
     @objc func tapGesture(_ recognizer: UITapGestureRecognizer) {
         if let view = recognizer.view {
             if view is UIImageView {
-                //Tap only on visible parts on the image
-                for imageView in subImageViews(view: canvasImageView) {
-                    let location = recognizer.location(in: imageView)
-                    let alpha = imageView.alphaAtPoint(location)
-                    if alpha > 0 {
-                        scaleEffect(view: imageView)
-                        break
+                if arrEditPhoto[0].isPhoto {
+                    //Tap only on visible parts on the image
+                    for imageView in subImageViews(view: imageView) {
+                        let location = recognizer.location(in: imageView)
+                        let alpha = imageView.alphaAtPoint(location)
+                        if alpha > 0 {
+                            scaleEffect(view: imageView)
+                            break
+                        }
+                    }
+                } else {
+                    //Tap only on visible parts on the image
+                    for imageView in subImageViews(view: canvasImageView) {
+                        let location = recognizer.location(in: imageView)
+                        let alpha = imageView.alphaAtPoint(location)
+                        if alpha > 0 {
+                            scaleEffect(view: imageView)
+                            break
+                        }
                     }
                 }
             } else {
@@ -160,16 +183,24 @@ extension EditImageVC : UIGestureRecognizerDelegate  {
     
     func moveView(view: UIView, recognizer: UIPanGestureRecognizer)  {
         
-        //        hideToolbar(hide: true)
         deleteView.isHidden = false
+        btnDoneImg.isHidden = false
+        editingOptions.isHidden = true
         
         view.superview?.bringSubviewToFront(view)
         let pointToSuperView = recognizer.location(in: self.view)
         
-        view.center = CGPoint(x: view.center.x + recognizer.translation(in: canvasImageView).x,
-                              y: view.center.y + recognizer.translation(in: canvasImageView).y)
-        
-        recognizer.setTranslation(CGPoint.zero, in: canvasImageView)
+        if arrEditPhoto[0].isPhoto {
+            view.center = CGPoint(x: view.center.x + recognizer.translation(in: imageView).x,
+                                  y: view.center.y + recognizer.translation(in: imageView).y)
+            
+            recognizer.setTranslation(CGPoint.zero, in: imageView)
+        } else {
+            view.center = CGPoint(x: view.center.x + recognizer.translation(in: canvasImageView).x,
+                                  y: view.center.y + recognizer.translation(in: canvasImageView).y)
+            
+            recognizer.setTranslation(CGPoint.zero, in: canvasImageView)
+        }
         
         if let previousPoint = lastPanPoint {
             //View is going into deleteView
@@ -180,7 +211,11 @@ extension EditImageVC : UIGestureRecognizerDelegate  {
                 }
                 UIView.animate(withDuration: 0.3, animations: {
                     view.transform = view.transform.scaledBy(x: 0.25, y: 0.25)
-                    view.center = recognizer.location(in: self.canvasImageView)
+                    if self.arrEditPhoto[0].isPhoto {
+                        view.center = recognizer.location(in: self.imageView)
+                    } else {
+                        view.center = recognizer.location(in: self.canvasImageView)
+                    }
                 })
             }
             //View is going out of deleteView
@@ -188,7 +223,11 @@ extension EditImageVC : UIGestureRecognizerDelegate  {
                 //Scale to original Size
                 UIView.animate(withDuration: 0.3, animations: {
                     view.transform = view.transform.scaledBy(x: 4, y: 4)
-                    view.center = recognizer.location(in: self.canvasImageView)
+                    if self.arrEditPhoto[0].isPhoto {
+                        view.center = recognizer.location(in: self.imageView)
+                    } else {
+                        view.center = recognizer.location(in: self.canvasImageView)
+                    }
                 })
             }
         }
@@ -197,23 +236,42 @@ extension EditImageVC : UIGestureRecognizerDelegate  {
         if recognizer.state == .ended {
             imageViewToPan = nil
             lastPanPoint = nil
-            //            hideToolbar(hide: false)
             deleteView.isHidden = true
+            btnDoneImg.isHidden = false
+            editingOptions.isHidden = false
             let point = recognizer.location(in: self.view)
             
             if deleteView.frame.contains(point) { // Delete the view
                 view.removeFromSuperview()
+                urlPreviewView = nil
                 if #available(iOS 10.0, *) {
                     let generator = UINotificationFeedbackGenerator()
                     generator.notificationOccurred(.success)
                 }
-            } else if !canvasImageView.bounds.contains(view.center) { //Snap the view back to canvasImageView
-                UIView.animate(withDuration: 0.3, animations: {
-                    print(self.canvasImageView.center)
-                    print(view.center)
-                    view.center = self.canvasImageView.center
-                })
                 
+                if view == activeTextView {
+                    isTextViewAdded = false
+                }
+                
+            } else {
+                if arrEditPhoto[0].isPhoto {
+                    if !imageView.bounds.contains(view.center) { //Snap the view back to canvasImageView
+                        UIView.animate(withDuration: 0.3, animations: {
+                            print(self.imageView.center)
+                            print(view.center)
+                            view.center = self.imageView.center
+                        })
+                        
+                    }
+                } else {
+                    if !canvasImageView.bounds.contains(view.center) { //Snap the view back to canvasImageView
+                        UIView.animate(withDuration: 0.3, animations: {
+                            print(self.canvasImageView.center)
+                            print(view.center)
+                            view.center = self.canvasImageView.center
+                        })
+                    }
+                }
             }
         }
     }

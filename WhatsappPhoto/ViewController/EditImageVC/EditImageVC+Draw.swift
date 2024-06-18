@@ -13,53 +13,73 @@ extension EditImageVC {
     override public func touchesBegan(_ touches: Set<UITouch>,
                                       with event: UIEvent?){
         if isDrawing {
+            UIView.animate(withDuration: 0.3) {
+                self.editingOptions.alpha = 0
+                self.editingOptions.isHidden = true
+                self.btnUndo.isHidden = true
+                self.btnUndo.alpha = 0
+            }
             swiped = false
             if let touch = touches.first {
                 lastPoint = touch.location(in: self.canvasImageView)
                 print("touchesBegan",lastPoint)
-                arrLinesModel.append(.init(point: [CGPoint](), color: [drawColor]))
+                arrLinesModel.append(.init(point: [lastPoint], color: [drawColor]))
             }
         }
         
         if isEmojiDrawing {
             swiped = false
             UIView.animate(withDuration: 0.3) {
-                self.emojiReactionStackVw.alpha = 0
-                self.emojiReactionStackVw.isHidden = true
-                self.emojiKnobPreviewView?.isHidden = true
+                self.editingOptions.alpha = 0
+                self.editingOptions.isHidden = true
+                self.btnUndo.isHidden = true
+                self.btnUndo.alpha = 0
             }
             if let touch = touches.first {
                 lastEmojiPoint = touch.location(in: self.canvasImageView)
                 print("touchesBeganEmoji", lastEmojiPoint)
-                arrEmojiModel.append(.init(points: [CGPoint](), emojis: [drawEmoji]))
+                arrEmojiModel.append(.init(points: [lastEmojiPoint], emojis: [drawEmoji]))
             }
             
         }
-        self.view.endEditing(true)
-        if currentMode == .textMode {
-            clvTextPicker.isHidden = true
-            colorPicker.isHidden = true
-            colorSlider.isHidden = true
-            btnHeartEyesEmoji.isHidden = false
-            canvasImageView.isUserInteractionEnabled = false
-            btnTextAdd.isSelected = false
-            isTyping = false
-            viewToolBar.isHidden = false
-            stkChatAndImgList.isHidden = false
-            hideToolbar(hide: false)
-            viewDone.isHidden =  true
-            currentMode = .none
-            //save
-            if let tv = self.canvasImageView.subviews as? [UITextView] {
-                self.arrEditPhoto[selectedImageIndex].textViews = tv
+        if arrEditPhoto[0].isPhoto {
+            self.view.endEditing(true)
+            if currentMode == .textMode {
+                clvTextPicker.isHidden = true
+                btnDraw.isHidden = false
+                btnUndo.isHidden = true
+                btnTextAlignment.isHidden = true
+                btnAlternateStyle.isHidden = true
+                btnStrokeColor.isHidden = true
+                btnHeartEyesEmoji.isHidden = true
+                colorSlider.isHidden = true
+                canvasImageView.isUserInteractionEnabled = false
+                imageView.isUserInteractionEnabled = true
+                btnTextAdd.isSelected = false
+                isTyping = false
+                btnDoneImg.isHidden = false
+                hideToolbar(hide: false)
+                currentMode = .none
+                activeTextView?.resignFirstResponder()
+                view.endEditing(true)
+                //save
+                if let tv = self.canvasImageView.subviews as? [UITextView] {
+                    self.arrEditPhoto[selectedImageIndex].textViews = tv
+                }
+                self.arrEditPhoto[selectedImageIndex].doneImage = canvasView.toImage()
             }
-            self.arrEditPhoto[selectedImageIndex].doneImage = canvasView.toImage()
         }
     }
     
     override public func touchesMoved(_ touches: Set<UITouch>,
                                       with event: UIEvent?){
         if isDrawing {
+            UIView.animate(withDuration: 0.3) {
+                self.editingOptions.alpha = 0
+                self.editingOptions.isHidden = true
+                self.btnUndo.isHidden = true
+                self.btnUndo.alpha = 0
+            }
             // 6
             swiped = true
             if let touch = touches.first {
@@ -82,24 +102,29 @@ extension EditImageVC {
         if isEmojiDrawing {
             swiped = true
             UIView.animate(withDuration: 0.3) {
-                self.emojiReactionStackVw.alpha = 0
-                self.emojiReactionStackVw.isHidden = true
-                self.emojiKnobPreviewView?.isHidden = true
+                self.editingOptions.alpha = 0
+                self.editingOptions.isHidden = true
+                self.btnUndo.isHidden = true
+                self.btnUndo.alpha = 0
             }
             if let touch = touches.first {
                 let currentPoint = touch.location(in: canvasImageView)
                 
-                let lastLine2 = arrEmojiModel.removeLast()
-                guard var points = lastLine2.points, var emojis = lastLine2.emojis else { return }
-                points.append(currentPoint)
-                emojis.append(self.drawEmoji)
-                arrEmojiModel.append(PointEmojiModel(points: points, emojis: emojis))
+                let distance = hypot(currentPoint.x - lastEmojiPoint.x, currentPoint.y - lastEmojiPoint.y)
                 
-                DispatchQueue.main.async {
-                    self.drawEmojiFrom()
+                if distance > minimumDistance {
+                    let lastLine2 = arrEmojiModel.removeLast()
+                    guard var points = lastLine2.points, var emojis = lastLine2.emojis else { return }
+                    points.append(currentPoint)
+                    emojis.append(self.drawEmoji)
+                    arrEmojiModel.append(PointEmojiModel(points: points, emojis: emojis))
+                    
+                    DispatchQueue.main.async {
+                        self.drawEmojiFrom()
+                    }
+                    
+                    lastEmojiPoint = currentPoint
                 }
-                
-                lastEmojiPoint = currentPoint
             }
             
         }
@@ -108,6 +133,12 @@ extension EditImageVC {
     override public func touchesEnded(_ touches: Set<UITouch>,
                                       with event: UIEvent?){
         if isDrawing {
+            UIView.animate(withDuration: 0.3) {
+                self.editingOptions.alpha = 1
+                self.editingOptions.isHidden = false
+                self.btnUndo.isHidden = false
+                self.btnUndo.alpha = 1
+            }
             if !swiped {
                 // draw a single point
                 DispatchQueue.main.async {
@@ -118,9 +149,10 @@ extension EditImageVC {
         
         if isEmojiDrawing {
             UIView.animate(withDuration: 0.3) {
-                self.emojiReactionStackVw.alpha = 1
-                self.emojiReactionStackVw.isHidden = false
-                self.emojiKnobPreviewView?.isHidden = true
+                self.editingOptions.alpha = 1
+                self.editingOptions.isHidden = false
+                self.btnUndo.isHidden = false
+                self.btnUndo.alpha = 1
             }
             if !swiped {
                 DispatchQueue.main.async {
@@ -138,9 +170,9 @@ extension EditImageVC {
         guard let context = UIGraphicsGetCurrentContext() else { return }
         canvasImageView.image?.draw(in: CGRect(x: 0, y: 0, width: canvasSize.width, height: canvasSize.height))
         
-        context.setLineCap( CGLineCap.round)
+        context.setLineCap(CGLineCap.round)
         context.setLineWidth(4.0)
-        context.setBlendMode( CGBlendMode.normal)
+        context.setBlendMode(CGBlendMode.normal)
         
         for i in arrLinesModel {
             guard let point = i.point, let color = i.color else { return }

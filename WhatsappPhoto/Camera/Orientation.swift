@@ -18,7 +18,6 @@ import AVFoundation
 import UIKit
 import CoreMotion
 
-
 class Orientation  {
     
     var shouldUseDeviceOrientation: Bool  = false

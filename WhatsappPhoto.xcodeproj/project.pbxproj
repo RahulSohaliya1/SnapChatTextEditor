@@ -38,7 +38,12 @@
 		8878FA3D28D8975D00B80963 /* PhotoHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8878FA3C28D8975D00B80963 /* PhotoHelper.swift */; };
 		88B3457528F42F30009CD364 /* EditImageVC+Model+Enum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B3457428F42F30009CD364 /* EditImageVC+Model+Enum.swift */; };
 		88B3457728F42FD4009CD364 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B3457628F42FD4009CD364 /* BaseViewController.swift */; };
+		BD110A3E2C1C1E91006F5FB1 /* PreviousLinkTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD110A3C2C1C1E91006F5FB1 /* PreviousLinkTableViewCell.swift */; };
+		BD110A3F2C1C1E91006F5FB1 /* PreviousLinkTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BD110A3D2C1C1E91006F5FB1 /* PreviousLinkTableViewCell.xib */; };
 		BD17EA292BF719F500FD7784 /* EmojiKnobPreviewVw.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD17EA282BF719F500FD7784 /* EmojiKnobPreviewVw.swift */; };
+		BD27E2282C1AA91900F690DF /* RotateVideoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD27E2272C1AA91900F690DF /* RotateVideoVC.swift */; };
+		BD27E22E2C1B1F7200F690DF /* LinkSearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD27E22D2C1B1F7200F690DF /* LinkSearchVC.swift */; };
+		BD9B16B92C05FDA900ADFDF6 /* ImagePreviewVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD9B16B82C05FDA900ADFDF6 /* ImagePreviewVC.swift */; };
 		BDDF39372BFDB0E700C324E1 /* ConstraintMultiplierTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDDF39112BFDB0E700C324E1 /* ConstraintMultiplierTarget.swift */; };
 		BDDF39382BFDB0E700C324E1 /* LayoutConstraintItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDDF39122BFDB0E700C324E1 /* LayoutConstraintItem.swift */; };
 		BDDF39392BFDB0E700C324E1 /* ConstraintDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDDF39132BFDB0E700C324E1 /* ConstraintDescription.swift */; };
@@ -97,6 +102,11 @@
 		BDDF39822BFDB0F600C324E1 /* Arvil_Sans.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BDDF396F2BFDB0F600C324E1 /* Arvil_Sans.ttf */; };
 		BDDF39852BFE065600C324E1 /* FontPickerCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDDF39832BFE065600C324E1 /* FontPickerCollectionViewCell.swift */; };
 		BDDF39862BFE065600C324E1 /* FontPickerCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BDDF39842BFE065600C324E1 /* FontPickerCollectionViewCell.xib */; };
+		BDE7CDB12C16F72200861E09 /* StickersVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDE7CDB02C16F72200861E09 /* StickersVC.swift */; };
+		BDE826D72C1082F900E6C5C2 /* SwiftLinkPreview in Frameworks */ = {isa = PBXBuildFile; productRef = BDE826D62C1082F900E6C5C2 /* SwiftLinkPreview */; };
+		BDE826D92C10850200E6C5C2 /* URLPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDE826D82C10850200E6C5C2 /* URLPreviewView.swift */; };
+		BDF88B032C180FE100F5D0AD /* CropViewController in Frameworks */ = {isa = PBXBuildFile; productRef = BDF88B022C180FE100F5D0AD /* CropViewController */; };
+		BDF88B052C180FE100F5D0AD /* TOCropViewController in Frameworks */ = {isa = PBXBuildFile; productRef = BDF88B042C180FE100F5D0AD /* TOCropViewController */; };
 		F9A5CAB543328BCA3175A4AC /* Pods_WhatsappPhoto.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32E38A90B981EBC5FF87F140 /* Pods_WhatsappPhoto.framework */; };
 /* End PBXBuildFile section */
 
@@ -136,7 +146,12 @@
 		8878FA3C28D8975D00B80963 /* PhotoHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoHelper.swift; sourceTree = "<group>"; };
 		88B3457428F42F30009CD364 /* EditImageVC+Model+Enum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EditImageVC+Model+Enum.swift"; sourceTree = "<group>"; };
 		88B3457628F42FD4009CD364 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
+		BD110A3C2C1C1E91006F5FB1 /* PreviousLinkTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviousLinkTableViewCell.swift; sourceTree = "<group>"; };
+		BD110A3D2C1C1E91006F5FB1 /* PreviousLinkTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PreviousLinkTableViewCell.xib; sourceTree = "<group>"; };
 		BD17EA282BF719F500FD7784 /* EmojiKnobPreviewVw.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiKnobPreviewVw.swift; sourceTree = "<group>"; };
+		BD27E2272C1AA91900F690DF /* RotateVideoVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RotateVideoVC.swift; sourceTree = "<group>"; };
+		BD27E22D2C1B1F7200F690DF /* LinkSearchVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkSearchVC.swift; sourceTree = "<group>"; };
+		BD9B16B82C05FDA900ADFDF6 /* ImagePreviewVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePreviewVC.swift; sourceTree = "<group>"; };
 		BDDF39112BFDB0E700C324E1 /* ConstraintMultiplierTarget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConstraintMultiplierTarget.swift; sourceTree = "<group>"; };
 		BDDF39122BFDB0E700C324E1 /* LayoutConstraintItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LayoutConstraintItem.swift; sourceTree = "<group>"; };
 		BDDF39132BFDB0E700C324E1 /* ConstraintDescription.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConstraintDescription.swift; sourceTree = "<group>"; };
@@ -196,6 +211,8 @@
 		BDDF396F2BFDB0F600C324E1 /* Arvil_Sans.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Arvil_Sans.ttf; sourceTree = "<group>"; };
 		BDDF39832BFE065600C324E1 /* FontPickerCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontPickerCollectionViewCell.swift; sourceTree = "<group>"; };
 		BDDF39842BFE065600C324E1 /* FontPickerCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FontPickerCollectionViewCell.xib; sourceTree = "<group>"; };
+		BDE7CDB02C16F72200861E09 /* StickersVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StickersVC.swift; sourceTree = "<group>"; };
+		BDE826D82C10850200E6C5C2 /* URLPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLPreviewView.swift; sourceTree = "<group>"; };
 		FBB732F1ECA584FDCDF12BB4 /* Pods-WhatsappPhoto.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WhatsappPhoto.debug.xcconfig"; path = "Target Support Files/Pods-WhatsappPhoto/Pods-WhatsappPhoto.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -205,6 +222,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				F9A5CAB543328BCA3175A4AC /* Pods_WhatsappPhoto.framework in Frameworks */,
+				BDE826D72C1082F900E6C5C2 /* SwiftLinkPreview in Frameworks */,
+				BDF88B052C180FE100F5D0AD /* TOCropViewController in Frameworks */,
+				BDF88B032C180FE100F5D0AD /* CropViewController in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -225,6 +245,10 @@
 			children = (
 				88B3457628F42FD4009CD364 /* BaseViewController.swift */,
 				8878FA1628D86F1A00B80963 /* ViewController.swift */,
+				BD9B16B82C05FDA900ADFDF6 /* ImagePreviewVC.swift */,
+				BDE7CDB02C16F72200861E09 /* StickersVC.swift */,
+				BD27E2272C1AA91900F690DF /* RotateVideoVC.swift */,
+				BD27E22D2C1B1F7200F690DF /* LinkSearchVC.swift */,
 				882F205528DC8DA200940972 /* EditImageVC */,
 			);
 			path = ViewController;
@@ -263,6 +287,8 @@
 				881D47AA28DD79E700238EFF /* ImgMainCell.xib */,
 				BDDF39832BFE065600C324E1 /* FontPickerCollectionViewCell.swift */,
 				BDDF39842BFE065600C324E1 /* FontPickerCollectionViewCell.xib */,
+				BD110A3C2C1C1E91006F5FB1 /* PreviousLinkTableViewCell.swift */,
+				BD110A3D2C1C1E91006F5FB1 /* PreviousLinkTableViewCell.xib */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -326,6 +352,7 @@
 				8843D3C429220D5E002E3B04 /* TLPHAsset+Ext.swift */,
 				8843D3C629221040002E3B04 /* Utils.swift */,
 				BD17EA282BF719F500FD7784 /* EmojiKnobPreviewVw.swift */,
+				BDE826D82C10850200E6C5C2 /* URLPreviewView.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -427,6 +454,11 @@
 			dependencies = (
 			);
 			name = WhatsappPhoto;
+			packageProductDependencies = (
+				BDE826D62C1082F900E6C5C2 /* SwiftLinkPreview */,
+				BDF88B022C180FE100F5D0AD /* CropViewController */,
+				BDF88B042C180FE100F5D0AD /* TOCropViewController */,
+			);
 			productName = WhatsappPhoto;
 			productReference = 8878FA0F28D86F1A00B80963 /* WhatsappPhoto.app */;
 			productType = "com.apple.product-type.application";
@@ -454,8 +486,22 @@
 			knownRegions = (
 				en,
 				Base,
+				de,
+				"zh-Hans",
+				ja,
+				es,
+				da,
+				"es-ES",
+				"zh-Hant",
+				vi,
+				fr,
+				pt,
 			);
 			mainGroup = 8878FA0628D86F1900B80963;
+			packageReferences = (
+				BDE826D52C1082F900E6C5C2 /* XCRemoteSwiftPackageReference "SwiftLinkPreview" */,
+				BDF88B012C180FE100F5D0AD /* XCRemoteSwiftPackageReference "TOCropViewController" */,
+			);
 			productRefGroup = 8878FA1028D86F1A00B80963 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -476,6 +522,7 @@
 				BDDF39722BFDB0F600C324E1 /* Haymaker.ttf in Resources */,
 				BDDF39772BFDB0F600C324E1 /* GearedSlab.ttf in Resources */,
 				8878FA1F28D86F2000B80963 /* Assets.xcassets in Resources */,
+				BD110A3F2C1C1E91006F5FB1 /* PreviousLinkTableViewCell.xib in Resources */,
 				BDDF39712BFDB0F600C324E1 /* Homestead-Regular.ttf in Resources */,
 				BDDF397B2BFDB0F600C324E1 /* governor.ttf in Resources */,
 				BDDF39792BFDB0F600C324E1 /* ValenciaRegular.otf in Resources */,
@@ -552,6 +599,7 @@
 				BDDF393C2BFDB0E700C324E1 /* ConstraintViewDSL.swift in Sources */,
 				8878FA1D28D86F1A00B80963 /* WhatsappPhoto.xcdatamodeld in Sources */,
 				BDDF39442BFDB0E700C324E1 /* ConstraintDirectionalInsetTarget.swift in Sources */,
+				BDE7CDB12C16F72200861E09 /* StickersVC.swift in Sources */,
 				BDDF39402BFDB0E700C324E1 /* ConstraintDSL.swift in Sources */,
 				8878FA3828D8842300B80963 /* CameraVC.swift in Sources */,
 				8878FA3728D8842300B80963 /* SwiftyCamViewControllerDelegate.swift in Sources */,
@@ -574,8 +622,10 @@
 				8843D3C529220D5E002E3B04 /* TLPHAsset+Ext.swift in Sources */,
 				BDDF394D2BFDB0E700C324E1 /* ConstraintOffsetTarget.swift in Sources */,
 				8807A78928E19F4E007DAAD1 /* EditImageVC+Draw.swift in Sources */,
+				BD9B16B92C05FDA900ADFDF6 /* ImagePreviewVC.swift in Sources */,
 				BDDF39452BFDB0E700C324E1 /* ConstraintMakerRelatable+Extensions.swift in Sources */,
 				BDDF39852BFE065600C324E1 /* FontPickerCollectionViewCell.swift in Sources */,
+				BD110A3E2C1C1E91006F5FB1 /* PreviousLinkTableViewCell.swift in Sources */,
 				BDDF393B2BFDB0E700C324E1 /* ConstraintAttributes.swift in Sources */,
 				BDDF393D2BFDB0E700C324E1 /* ConstraintPriorityTarget.swift in Sources */,
 				BDDF39502BFDB0E700C324E1 /* ConstraintRelation.swift in Sources */,
@@ -600,6 +650,8 @@
 				8878FA3A28D8842300B80963 /* Orientation.swift in Sources */,
 				BDDF39392BFDB0E700C324E1 /* ConstraintDescription.swift in Sources */,
 				BDDF39432BFDB0E700C324E1 /* ConstraintInsetTarget.swift in Sources */,
+				BD27E22E2C1B1F7200F690DF /* LinkSearchVC.swift in Sources */,
+				BDE826D92C10850200E6C5C2 /* URLPreviewView.swift in Sources */,
 				BDDF394A2BFDB0E700C324E1 /* ConstraintLayoutSupport.swift in Sources */,
 				8878FA3D28D8975D00B80963 /* PhotoHelper.swift in Sources */,
 				BDDF39542BFDB0E700C324E1 /* Constraint.swift in Sources */,
@@ -612,6 +664,7 @@
 				BDDF39372BFDB0E700C324E1 /* ConstraintMultiplierTarget.swift in Sources */,
 				BDDF39562BFDB0E700C324E1 /* ConstraintRelatableTarget.swift in Sources */,
 				BDDF39412BFDB0E700C324E1 /* ConstraintMakerExtendable.swift in Sources */,
+				BD27E2282C1AA91900F690DF /* RotateVideoVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -852,6 +905,43 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		BDE826D52C1082F900E6C5C2 /* XCRemoteSwiftPackageReference "SwiftLinkPreview" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/LeonardoCardoso/SwiftLinkPreview.git";
+			requirement = {
+				kind = exactVersion;
+				version = 3.4.0;
+			};
+		};
+		BDF88B012C180FE100F5D0AD /* XCRemoteSwiftPackageReference "TOCropViewController" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/TimOliver/TOCropViewController.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		BDE826D62C1082F900E6C5C2 /* SwiftLinkPreview */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BDE826D52C1082F900E6C5C2 /* XCRemoteSwiftPackageReference "SwiftLinkPreview" */;
+			productName = SwiftLinkPreview;
+		};
+		BDF88B022C180FE100F5D0AD /* CropViewController */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BDF88B012C180FE100F5D0AD /* XCRemoteSwiftPackageReference "TOCropViewController" */;
+			productName = CropViewController;
+		};
+		BDF88B042C180FE100F5D0AD /* TOCropViewController */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BDF88B012C180FE100F5D0AD /* XCRemoteSwiftPackageReference "TOCropViewController" */;
+			productName = TOCropViewController;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		8878FA1B28D86F1A00B80963 /* WhatsappPhoto.xcdatamodeld */ = {
